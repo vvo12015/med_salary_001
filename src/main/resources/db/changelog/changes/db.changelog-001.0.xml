@@ -1,0 +1,61 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet  id="1"  author="vvo12015">
+        <createTable  tableName="users">
+            <column  name="id"  type="bigint"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="varchar(150)"/>
+            <column  name="speciality"  type="varchar(150)"/>
+            <column  name="login"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="password"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="department_ref"  type="bigint"/>
+            <column  name="state"  type="char(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet  id="2"  author="vvo12015">
+        <dropColumn tableName="users" columnName="state"/>
+    </changeSet>
+    <changeSet id="3" author="vvo12015">
+        <insert tableName="users">
+            <column name="name" value="Ivanov I. I." />
+            <column name="speciality" value="surgeon" />
+            <column name="login" value="ivanov" />
+            <column name="password" value="ivanov123" />
+            <column name="department_ref" value="1" />
+        </insert>
+    </changeSet>
+    <changeSet  id="4"  author="vvo12015">
+        <dropTable tableName="users"/>
+        <createTable  tableName="users">
+            <column  name="id"  type="BIGINT"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="VARCHAR(150)"/>
+            <column  name="speciality"  type="VARCHAR(150)"/>
+            <column  name="login"  type="VARCHAR(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="password"  type="VARCHAR(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="department_ref"  type="BIGINT"/>
+            <column  name="is_disable" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet  id="5"  author="vvo12015">
+        <dropColumn tableName="users" columnName="is_disable"/>
+    </changeSet>
+    <changeSet  id="6"  author="vvo12015">
+        <addColumn tableName="users">
+            <column name="is_disable" type="BIT"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
