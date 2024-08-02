@@ -3,7 +3,8 @@ package net.vrakin.med_salary.controller;
 import lombok.AllArgsConstructor;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
-import net.vrakin.med_salary.service.UserServiceImpl;
+import net.vrakin.med_salary.service.AbstractService;
+import net.vrakin.med_salary.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
@@ -24,8 +25,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) throws RuntimeException {
         UserDTO user = userService.findById(id).orElseThrow(()->new ResourceNotFoundException("User", "id", id.toString()));
+
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

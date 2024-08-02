@@ -1,7 +1,16 @@
 package net.vrakin.med_salary.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -11,4 +20,6 @@ public class Role {
 
     @Column(unique=true, nullable = false)
     private String name;
+
+    private List<User> users;
 }
