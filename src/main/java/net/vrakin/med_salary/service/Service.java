@@ -19,14 +19,6 @@ public interface Service<T> {
     Optional<T> findById(Long id);
 
     /**
-     * Finds entities by their name.
-     *
-     * @param name The name to search for.
-     * @return A list of entities matching the given name.
-     */
-    List<T> findByName(String name);
-
-    /**
      * Retrieves all entities.
      *
      * @return A list of all entities.
@@ -40,13 +32,6 @@ public interface Service<T> {
      * @return The saved or updated entity.
      */
     T save(T t);
-
-    /**
-     * Deletes an entity.
-     *
-     * @param t The entity to delete.
-     */
-    void delete(T t);
 
     /**
      * Deletes an entity by its ID.

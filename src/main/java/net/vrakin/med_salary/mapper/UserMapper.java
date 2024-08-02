@@ -4,16 +4,23 @@ import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.MappingTarget;
 
-@Mapper
-public interface UserMapper {
+@Mapper(componentModel = "spring")
+public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
+    @Override
+    @Mapping(target = "password", ignore = true)
+    @Mapping(source="departmentRef",  target = "departmentName")
+    @Mapping(source="speciality",  target = "specialityName")
+    public abstract UserDTO toDto(User entity);
 
-    UserMapper USER_MAPPER = Mappers.getMapper(UserMapper.class);
+    @Override
+    @Mapping(source="departmentName",  target = "departmentRef")
+    @Mapping(source="specialityName",  target = "speciality")
+    public abstract User toEntity(UserDTO dto);
 
-    @Mapping(source = "departmentRef", target = "departmentName")
-    @Mapping(source = "speciality", target = "specialityName")
-    UserDTO mapToUserDTO(User user);
-
-    User mapToUser(UserDTO userDTO);
+    @Override
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    public abstract void updateEntityFromDto(UserDTO dto, @MappingTarget User entity);
 }
