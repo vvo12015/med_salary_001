@@ -58,4 +58,14 @@
             <column name="is_disable" type="BIT"/>
         </addColumn>
     </changeSet>
+    <changeSet id="7" author="vvo12015">
+        <insert tableName="users">
+            <column name="name" value="Ivanov I. I." />
+            <column name="speciality" value="surgeon" />
+            <column name="login" value="ivanov" />
+            <column name="password" value="ivanov123" />
+            <column name="department_ref" value="1" />
+            <column name="is_disable" valueBoolean="false"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

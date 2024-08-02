@@ -1,9 +1,6 @@
 package net.vrakin.med_salary.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -18,9 +15,10 @@ import org.hibernate.annotations.Type;
 @Table(name="users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique=true, nullable = false)
     private String login;
 
     @Column
