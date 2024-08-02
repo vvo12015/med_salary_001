@@ -8,7 +8,9 @@
             <column  name="id"  type="bigint"  autoIncrement="true">
                 <constraints  primaryKey="true"  nullable="false"/>
             </column>
-            <column  name="name"  type="varchar(150)"/>
+            <column  name="name"  type="varchar(150)">
+                <constraints unique="true" nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet id="8" author="vvo12015">

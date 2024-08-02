@@ -1,9 +1,6 @@
 package net.vrakin.med_salary.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -18,6 +15,7 @@ import org.hibernate.annotations.Type;
 @Table(name="users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique=true)
@@ -32,9 +30,9 @@ public class User {
     @Column
     private String speciality;
 
-    @Column(name = "department_ref")
+    @Column
     private Long departmentRef;
 
-    @Column(name = "is_disable", columnDefinition = "BOOLEAN")
+    @Column
     private Boolean isDisable;
 }
