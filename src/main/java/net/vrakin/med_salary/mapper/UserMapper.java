@@ -9,17 +9,11 @@ import org.mapstruct.*;
 public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
     @Override
     @Mapping(target = "password", ignore = true)
-    @Mapping(source="departmentRef",  target = "departmentName")
+    @Mapping(source="department.name",  target = "departmentName")
     @Mapping(source="speciality",  target = "specialityName")
-//    @Mapping(target = "roles", qualifiedByName = "roleToRoleDtoList")
     public abstract UserDTO toDto(User entity);
 
-   /* @IterableMapping(qualifiedByName = "roleToRoleDto")
-    @Named("roleToRoleDtoList")*/
-
-
     @Override
-    @Mapping(source="departmentName",  target = "departmentRef")
     @Mapping(source="specialityName",  target = "speciality")
     public abstract User toEntity(UserDTO dto);
 

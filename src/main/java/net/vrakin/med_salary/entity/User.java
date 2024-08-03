@@ -32,8 +32,9 @@ public class User {
     @Column
     private String speciality;
 
-    @Column
-    private Long departmentRef;
+    @ManyToOne
+    @JoinColumn(name = "department_ref")
+    private Department department;
 
     @Column
     private Boolean isDisable;
