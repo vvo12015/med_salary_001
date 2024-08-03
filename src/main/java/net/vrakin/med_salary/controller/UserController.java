@@ -2,7 +2,9 @@ package net.vrakin.med_salary.controller;
 
 import lombok.AllArgsConstructor;
 import net.vrakin.med_salary.dto.UserDTO;
+import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
+import net.vrakin.med_salary.repository.UserRepository;
 import net.vrakin.med_salary.service.AbstractService;
 import net.vrakin.med_salary.service.UserService;
 import org.springframework.http.HttpStatus;
