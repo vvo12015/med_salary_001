@@ -27,4 +27,10 @@
             <column name="role_id" value="1"/>
         </insert>
     </changeSet>
+    <changeSet id="11" author="vvo12015">
+        <insert tableName="user_role">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

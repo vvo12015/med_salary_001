@@ -2,6 +2,8 @@ package net.vrakin.med_salary.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class UserDTO {
     public String specialityName;
     public String isDisable;
     public String password;
+    public List<RoleDTO> roles;
 }

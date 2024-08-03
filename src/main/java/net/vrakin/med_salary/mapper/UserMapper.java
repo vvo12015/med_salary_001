@@ -1,10 +1,9 @@
 package net.vrakin.med_salary.mapper;
 
+import net.vrakin.med_salary.dto.RoleDTO;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
@@ -12,7 +11,12 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
     @Mapping(target = "password", ignore = true)
     @Mapping(source="departmentRef",  target = "departmentName")
     @Mapping(source="speciality",  target = "specialityName")
+//    @Mapping(target = "roles", qualifiedByName = "roleToRoleDtoList")
     public abstract UserDTO toDto(User entity);
+
+   /* @IterableMapping(qualifiedByName = "roleToRoleDto")
+    @Named("roleToRoleDtoList")*/
+
 
     @Override
     @Mapping(source="departmentName",  target = "departmentRef")
