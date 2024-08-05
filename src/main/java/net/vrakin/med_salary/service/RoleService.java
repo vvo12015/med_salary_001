@@ -4,7 +4,8 @@ import net.vrakin.med_salary.dto.RoleDTO;
 import net.vrakin.med_salary.entity.Role;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RoleService extends Service<Role>{
-    List<Role> findByName(String name);
+    Optional<Role> findByName(String name);
 }

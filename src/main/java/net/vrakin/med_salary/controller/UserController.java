@@ -103,7 +103,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<UserDTO> add(@RequestBody CreateUserDTO userDto) {
 
         User user = userMapper.toEntity(userDto);
@@ -126,11 +126,11 @@ public class UserController {
             throw new IdMismatchException("User", id.toString(), userDTO.getId().toString());
         }
 
-        User user = userService.findById(id)
+        userService.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("User", "id", id.toString()));
 
 
-        user = userMapper.toEntity(userDTO);
+        User user = userMapper.toEntity(userDTO);
 
 
         UserDTO savedUser = userMapper.toDto(userService.save(user));

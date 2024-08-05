@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +26,7 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
     }
 
     @Override
-    public List<Role> findByName(String name) {
+    public Optional<Role> findByName(String name) {
         return roleRepository.findByName(name);
     }
 }
