@@ -8,7 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class SavedDepartmentDTO {
+public class UpdatedDepartmentDTO {
+    private Long id;
     private String name;
     private Long managerId;
 }

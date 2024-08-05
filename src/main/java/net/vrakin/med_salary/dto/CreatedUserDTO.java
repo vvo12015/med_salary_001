@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CreateUserDTO{
+public class CreatedUserDTO {
     private String name;
     private String login;
     private String password;

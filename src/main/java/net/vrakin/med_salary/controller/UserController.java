@@ -1,6 +1,6 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.dto.CreateUserDTO;
+import net.vrakin.med_salary.dto.CreatedUserDTO;
 import net.vrakin.med_salary.dto.UpdateUserDTO;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.Department;
@@ -104,7 +104,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserDTO> add(@RequestBody CreateUserDTO userDto) {
+    public ResponseEntity<UserDTO> add(@RequestBody CreatedUserDTO userDto) {
 
         User user = userMapper.toEntity(userDto);
 

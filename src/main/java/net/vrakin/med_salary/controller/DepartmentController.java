@@ -1,17 +1,16 @@
 package net.vrakin.med_salary.controller;
 
-import lombok.AllArgsConstructor;
+import net.vrakin.med_salary.dto.CreatedDepartmentDTO;
 import net.vrakin.med_salary.dto.DepartmentDTO;
-import net.vrakin.med_salary.dto.DepartmentDTO;
-import net.vrakin.med_salary.dto.RoleDTO;
-import net.vrakin.med_salary.dto.SavedDepartmentDTO;
+import net.vrakin.med_salary.dto.UpdatedDepartmentDTO;
 import net.vrakin.med_salary.entity.Department;
-import net.vrakin.med_salary.entity.Department;
-import net.vrakin.med_salary.entity.Role;
+import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.mapper.DepartmentMapper;
+import net.vrakin.med_salary.service.AbstractService;
 import net.vrakin.med_salary.service.DepartmentService;
+import net.vrakin.med_salary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +23,14 @@ import java.util.List;
 public class DepartmentController {
 
     private final DepartmentService departmentService;
+    private final UserService userService;
     private final DepartmentMapper departmentMapper;
 
     @Autowired
-    public DepartmentController(DepartmentService departmentService, DepartmentMapper departmentMapper) {
+    public DepartmentController(DepartmentService departmentService,
+                                UserService userService,
+                                DepartmentMapper departmentMapper) {
+        this.userService = userService;
         this.departmentService = departmentService;
         this.departmentMapper = departmentMapper;
     }
@@ -47,7 +50,7 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public ResponseEntity<DepartmentDTO> add(@RequestBody SavedDepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> add(@RequestBody CreatedDepartmentDTO departmentDTO) {
 
         Department department = departmentService.save(departmentMapper.toEntity(departmentDTO));
 
@@ -63,7 +66,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DepartmentDTO> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> updateDepartment(@PathVariable Long id, @RequestBody UpdatedDepartmentDTO departmentDTO) {
         if (!departmentDTO.getId().equals(id)){
             throw new IdMismatchException("RoleDTO", id.toString(), departmentDTO.getId().toString());
         }
@@ -84,6 +87,20 @@ public class DepartmentController {
     public ResponseEntity<DepartmentDTO> getByName(@PathVariable String name) throws ResourceNotFoundException {
         Department department = departmentService.findByName(name)
                 .orElseThrow(()->new ResourceNotFoundException("Department", "name", name));
+
+        DepartmentDTO departmentDTO = departmentMapper.toDto(department);
+
+        return new ResponseEntity<>(departmentDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/manager/{managerId}")
+    public ResponseEntity<DepartmentDTO> getByManager(@PathVariable Long managerId) throws ResourceNotFoundException{
+
+        User manager = userService.findById(managerId)
+                .orElseThrow(()->new ResourceNotFoundException("Manager", "id", managerId.toString()));
+
+        Department department = departmentService.findByManager(manager)
+                .orElseThrow(()->new ResourceNotFoundException("Department by manager", "managerId", managerId.toString()));
 
         DepartmentDTO departmentDTO = departmentMapper.toDto(department);
 

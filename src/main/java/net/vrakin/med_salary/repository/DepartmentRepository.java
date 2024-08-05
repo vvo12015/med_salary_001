@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     Optional<Department> findByName(String name);
-    List<Department> findByManager(User manager);
+    Optional<Department> findByManager(User manager);
 }

@@ -34,7 +34,7 @@ public class DepartmentServiceImpl extends AbstractService<Department> implement
     }
 
     @Override
-    public List<Department> findByManager(User manager){
+    public Optional<Department> findByManager(User manager){
         return departmentRepository.findByManager(manager);
     }
 }

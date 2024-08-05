@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface DepartmentService extends Service<Department>{
     Optional<Department> findByName(String name);
-    List<Department> findByManager(User manager);
+    Optional<Department> findByManager(User manager);
 }

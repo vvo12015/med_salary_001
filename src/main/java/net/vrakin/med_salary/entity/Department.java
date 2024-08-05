@@ -23,7 +23,7 @@ public class Department {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<User> users;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_ref")
     private User manager;
 

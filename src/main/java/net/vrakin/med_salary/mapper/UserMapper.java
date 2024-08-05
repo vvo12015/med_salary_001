@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
-import net.vrakin.med_salary.dto.CreateUserDTO;
+import net.vrakin.med_salary.dto.CreatedUserDTO;
 import net.vrakin.med_salary.dto.UpdateUserDTO;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.Department;
@@ -40,14 +40,14 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "department", ignore = true)
     @Mapping(target = "roles", ignore = true)
-    public abstract User toEntity(CreateUserDTO dto);
+    public abstract User toEntity(CreatedUserDTO dto);
 
     @Mapping(target = "department", ignore = true)
     @Mapping(target = "roles", ignore = true)
     public abstract User toEntity(UpdateUserDTO dto);
 
     @AfterMapping
-    protected void linkDepartmentAndRoles(CreateUserDTO userDTO, @MappingTarget User user) {
+    protected void linkDepartmentAndRoles(CreatedUserDTO userDTO, @MappingTarget User user) {
 
         Long departmentId = userDTO.getDepartmentId();
         List<Long> roleIds = userDTO.getRoleIds();
