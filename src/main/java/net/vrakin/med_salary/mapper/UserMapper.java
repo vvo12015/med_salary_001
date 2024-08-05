@@ -81,13 +81,6 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
         }
     }
 
-    protected Department map(Long departmentId) {
-        if (departmentId == null) {return null;}
-
-        return departmentService.findById(departmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Department from User", "id", departmentId.toString()));
-    }
-
     protected List<Long> map(List<Role> roles) {
         return roles == null ? null : roles.stream().map(Role::getId).collect(Collectors.toList());
     }

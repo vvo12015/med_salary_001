@@ -10,4 +10,5 @@ import lombok.*;
 @ToString
 public class SavedDepartmentDTO {
     private String name;
+    private Long managerId;
 }

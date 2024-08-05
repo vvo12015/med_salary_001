@@ -23,11 +23,16 @@ public class Department {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<User> users;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "manager_ref")
+    private User manager;
+
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", manager='" + manager.getName() + '\'' +
                 '}';
     }
 }

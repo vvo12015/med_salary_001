@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RoleServiceImpl extends AbstractService<Role> implements RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public RoleServiceImpl(RoleRepository repository){

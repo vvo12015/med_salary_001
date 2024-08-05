@@ -4,6 +4,7 @@ import net.vrakin.med_salary.dto.DepartmentDTO;
 import net.vrakin.med_salary.dto.RoleDTO;
 import net.vrakin.med_salary.entity.Department;
 import net.vrakin.med_salary.entity.Role;
+import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.mapper.DepartmentMapper;
 import net.vrakin.med_salary.mapper.RoleMapper;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class DepartmentServiceImpl extends AbstractService<Department> implements DepartmentService {
 
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
     public DepartmentServiceImpl(DepartmentRepository repository){
@@ -30,5 +31,10 @@ public class DepartmentServiceImpl extends AbstractService<Department> implement
     @Override
     public Optional<Department> findByName(String name) {
         return departmentRepository.findByName(name);
+    }
+
+    @Override
+    public List<Department> findByManager(User manager){
+        return departmentRepository.findByManager(manager);
     }
 }

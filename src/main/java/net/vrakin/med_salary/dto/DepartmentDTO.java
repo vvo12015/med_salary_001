@@ -11,4 +11,5 @@ import lombok.*;
 public class DepartmentDTO {
     private Long id;
     private String name;
+    private UserDTO manager;
 }

@@ -5,7 +5,6 @@ import net.vrakin.med_salary.dto.SavedRoleDTO;
 import net.vrakin.med_salary.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public abstract class RoleMapper extends AbstractMapper<Role, RoleDTO> {
