@@ -7,7 +7,6 @@ public abstract class AbstractMapper<E, D> implements BaseMapper<E, D> {
 
     public abstract D toDto(E entity);
     public abstract E toEntity(D dto);
-    public abstract void updateEntityFromDto(D dto, E entity);
 
     @Override
     public List<D> toDtoList(List<E> entityList) {

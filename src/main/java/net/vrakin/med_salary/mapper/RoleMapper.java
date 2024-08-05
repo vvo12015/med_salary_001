@@ -13,7 +13,4 @@ public abstract class RoleMapper extends AbstractMapper<Role, RoleDTO> {
 
     @Override
     public abstract Role toEntity(RoleDTO dto);
-
-    @Override
-    public abstract void updateEntityFromDto(RoleDTO dto, @MappingTarget Role entity);
 }

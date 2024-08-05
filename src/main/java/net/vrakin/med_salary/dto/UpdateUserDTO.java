@@ -1,7 +1,6 @@
 package net.vrakin.med_salary.dto;
 
 import lombok.*;
-import net.vrakin.med_salary.entity.Role;
 
 import java.util.List;
 
@@ -9,15 +8,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @ToString
-public class UserDTO {
+public class UpdateUserDTO{
     private Long id;
     private String name;
     private String login;
-    private DepartmentDTO department;
-    private String specialityName;
-    private String isDisable;
     private String password;
-    private List<RoleDTO> roles;
+    private String specialityName;
+    private Long departmentId;
+    private List<Long> roleIds;
+    private String isDisable;
 }

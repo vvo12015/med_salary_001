@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@ToString
 @Entity
+@ToString
 @Table(name="users")
 public class User {
     @Id
@@ -29,10 +29,10 @@ public class User {
     @Column
     private String name;
 
-    @Column
-    private String speciality;
+    @Column(name = "speciality")
+    private String specialityName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_ref")
     private Department department;
 

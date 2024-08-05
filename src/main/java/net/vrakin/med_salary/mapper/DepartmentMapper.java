@@ -14,7 +14,4 @@ public abstract class DepartmentMapper extends AbstractMapper<Department, Depart
 
     @Override
     public abstract Department toEntity(DepartmentDTO dto);
-
-    @Override
-    public abstract void updateEntityFromDto(DepartmentDTO dto, @MappingTarget Department entity);
 }

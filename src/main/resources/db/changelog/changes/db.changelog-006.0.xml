@@ -1,0 +1,75 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="15" author="vvo12015">
+        <insert tableName="department">
+            <column name="name" value="therapy"/>
+        </insert>
+        <insert tableName="department">
+            <column name="name" value="it"/>
+        </insert>
+    </changeSet>
+    <changeSet id="16" author="vvo12015">
+            <insert tableName="users">
+                <column name="name" value="Sidorov O. O." />
+                <column name="speciality" value="surgeon" />
+                <column name="login" value="sidorov" />
+                <column name="password" value="sidorov123" />
+                <column name="department_ref" value="1" />
+                <column name="is_disable" valueBoolean="false"/>
+            </insert>
+            <insert tableName="users">
+                <column name="name" value="Petrov V. V." />
+                <column name="speciality" value="therapist" />
+                <column name="login" value="ivanov" />
+                <column name="password" value="ivanov123" />
+                <column name="department_ref" value="2" />
+                <column name="is_disable" valueBoolean="false"/>
+            </insert>
+            <insert tableName="users">
+                <column name="name" value="Durova D. D." />
+                <column name="speciality" value="nurse" />
+                <column name="login" value="durov" />
+                <column name="password" value="durov123" />
+                <column name="department_ref" value="2" />
+                <column name="is_disable" valueBoolean="false"/>
+            </insert>
+            <insert tableName="users">
+                <column name="name" value="Konovalov K. K." />
+                <column name="speciality" value="admin" />
+                <column name="login" value="konovalov" />
+                <column name="password" value="konovalov123" />
+                <column name="department_ref" value="3" />
+                <column name="is_disable" valueBoolean="false"/>
+            </insert>
+    </changeSet>
+    <changeSet id="17" author="vvo12015">
+        <delete tableName="user_role">
+            <where>user_id=1</where>
+        </delete>
+        <insert tableName="user_role">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="4"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="5"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

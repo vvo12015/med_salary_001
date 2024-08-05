@@ -1,20 +1,23 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.dto.RoleDTO;
-import net.vrakin.med_salary.dto.UserDTO;
+import net.vrakin.med_salary.entity.Department;
+import net.vrakin.med_salary.entity.Role;
+import net.vrakin.med_salary.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service interface for managing User entities.
- * Extends the generic Service interface with UserDTO as the entity type.
- */
-public interface UserService extends Service<UserDTO> {
+public interface UserService extends Service<User> {
 
-    Optional<UserDTO> findByLogin(String login);
+    Optional<User> findByLogin(String login);
 
-    List<UserDTO> findBySpecialty(String specialty);
+    List<User> findBySpecialty(String specialtyName);
 
-    List<UserDTO> findByName(String name);
+    List<User> findByName(String name);
+
+    List<User> findByRole(Role role);
+
+    List<User> findByDepartment(Department department);
+
+    List<User> findByNameLike(String namePattern);
 }

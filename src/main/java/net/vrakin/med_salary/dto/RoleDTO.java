@@ -9,6 +9,6 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class RoleDTO {
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
 }

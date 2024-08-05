@@ -1,42 +1,59 @@
 package net.vrakin.med_salary.service;
 
-import lombok.AllArgsConstructor;
-import net.vrakin.med_salary.dto.UserDTO;
+import net.vrakin.med_salary.entity.Department;
+import net.vrakin.med_salary.entity.Role;
 import net.vrakin.med_salary.entity.User;
-import net.vrakin.med_salary.mapper.UserMapper;
+import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-/**
- * Implementation of the UserService interface.
- * This service class provides methods for managing User entities.
- */
 @Service
-public class UserServiceImpl extends AbstractService<User, UserDTO> implements UserService {
+public class UserServiceImpl extends AbstractService<User> implements UserService {
 
     @Autowired
-    public UserServiceImpl(UserRepository repository, UserMapper mapper){
-        super(repository, mapper);
+    public UserServiceImpl(UserRepository repository){
+        super(repository);
     }
 
     private UserRepository userRepository;
 
-    @Override
-    public Optional<UserDTO> findByLogin(String login) {
-        return getDTO(userRepository.findByLogin(login));
+    @Autowired
+    public void setUserRepository(UserRepository repository){
+        this.userRepository = repository;
     }
 
     @Override
-    public List<UserDTO> findBySpecialty(String specialty) {
-        return getDTOCollect(userRepository.findBySpeciality(specialty));
+    public Optional<User> findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     @Override
-    public List<UserDTO> findByName(String name) {
-        return getDTOCollect(userRepository.findByName(name));
+    public List<User> findBySpecialty(String specialty) {
+        return userRepository.findBySpecialityName(specialty);
+    }
+
+    @Override
+    public List<User> findByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
+    public List<User> findByRole(Role role) {
+        return userRepository.findByRole(role);
+    }
+
+    @Override
+    public List<User> findByDepartment(Department department) {
+        return userRepository.findByDepartment(department);
+    }
+
+    @Override
+    public List<User> findByNameLike(String namePattern) {
+        return userRepository.findByNameLike(namePattern);
     }
 }

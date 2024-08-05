@@ -10,40 +10,15 @@ import java.util.Optional;
  */
 public interface Service<T> {
 
-    /**
-     * Finds an entity by its ID.
-     *
-     * @param id The ID of the entity to find.
-     * @return An Optional containing the entity if found, or empty if not found.
-     */
-    Optional<T> findById(Long id);
-
-    /**
-     * Retrieves all entities.
-     *
-     * @return A list of all entities.
-     */
-    List<T> findAll();
-
-    /**
-     * Saves a new entity or updates an existing one.
-     *
-     * @param t The entity to save or update.
-     * @return The saved or updated entity.
-     */
     T save(T t);
 
-    /**
-     * Deletes an entity by its ID.
-     *
-     * @param id The ID of the entity to delete.
-     */
+    Optional<T> findById(Long id);
+
+    List<T> findAll();
+
     void deleteById(Long id);
 
-    /**
-     * Deletes multiple entities by their IDs.
-     *
-     * @param ids A list of entity IDs to delete.
-     */
     void deleteAllById(List<Long> ids);
+
+    public List<T> findAllById(List<Long> ids);
 }
