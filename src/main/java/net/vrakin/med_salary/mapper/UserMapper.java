@@ -1,6 +1,7 @@
 package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
+import net.vrakin.med_salary.dto.DepartmentDTO;
 import net.vrakin.med_salary.dto.UserSavedDTO;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.Department;
@@ -22,6 +23,8 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
     private RoleService roleService;
     private DepartmentService departmentService;
 
+    private DepartmentMapper departmentMapper;
+
     @Autowired
     public void setRoleService(RoleService roleService) {
         this.roleService = roleService;
@@ -30,6 +33,11 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
     @Autowired
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
+    }
+
+    @Autowired
+    public void setDepartmentMapper(DepartmentMapper departmentMapper) {
+        this.departmentMapper = departmentMapper;
     }
 
     @Mapping(target = "password", ignore = true)
@@ -61,6 +69,10 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
 
     protected List<Long> map(List<Role> roles) {
         return roles == null ? null : roles.stream().map(Role::getId).collect(Collectors.toList());
+    }
+
+    protected DepartmentDTO map(Department department){
+        return departmentMapper.toDto(department);
     }
 
 }
