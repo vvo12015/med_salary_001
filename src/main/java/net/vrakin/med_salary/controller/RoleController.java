@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/roles")
+@RequestMapping("/api/roles")
 @Slf4j
 public class RoleController {
 
@@ -59,9 +59,13 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteById(@PathVariable Long id) {
-        roleService.deleteById(id);
-        return HttpStatus.NO_CONTENT;
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+        try {
+            roleService.deleteById(id);
+        }catch (ResourceNotFoundException e){
+            throw new ResourceNotFoundException("Role", "id", id.toString());
+        }
+        return ResponseEntity.ok("Role deleted successfully!.");
     }
 
     @PutMapping("/{id}")

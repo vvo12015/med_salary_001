@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -103,7 +103,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<UserDTO> add(@RequestBody UserSavedDTO userDto) {
 
         if (userDto.getId() != null) {
@@ -118,9 +118,13 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteById(@PathVariable Long id) {
-        userService.deleteById(id);
-        return HttpStatus.NO_CONTENT;
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+        try {
+            userService.deleteById(id);
+        }catch (ResourceNotFoundException e){
+            throw new ResourceNotFoundException("User", "id", id.toString());
+        }
+        return ResponseEntity.ok("User deleted successfully!.");
     }
 
     @PutMapping("/{id}")

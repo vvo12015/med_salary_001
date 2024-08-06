@@ -1,0 +1,30 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="21" author="vvo12015">
+        <dropTable tableName="security_user"/>
+        <createTable tableName="security_user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column  name="login"  type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+            <column  name="password"  type="varchar(250)">
+            </column>
+            <column  name="security_role"  type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="email"  type="varchar(100)">
+                <constraints unique="true"/>
+            </column>
+            <column  name="phone"  type="varchar(50)">
+            </column>
+            <column  name="address"  type="varchar(250)">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

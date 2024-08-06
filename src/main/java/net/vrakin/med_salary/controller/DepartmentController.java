@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/api/departments")
 public class DepartmentController {
 
     private final DepartmentService departmentService;
@@ -63,9 +63,13 @@ public class DepartmentController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteById(@PathVariable Long id) {
-        departmentService.deleteById(id);
-        return HttpStatus.NO_CONTENT;
+    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+        try {
+            departmentService.deleteById(id);
+        }catch (ResourceNotFoundException e){
+            throw new ResourceNotFoundException("Department", "id", id.toString());
+        }
+        return ResponseEntity.ok("Department deleted successfully!.");
     }
 
     @PutMapping("/{id}")

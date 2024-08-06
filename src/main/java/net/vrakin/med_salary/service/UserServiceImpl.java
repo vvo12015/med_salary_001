@@ -3,14 +3,12 @@ package net.vrakin.med_salary.service;
 import net.vrakin.med_salary.entity.Department;
 import net.vrakin.med_salary.entity.Role;
 import net.vrakin.med_salary.entity.User;
-import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl extends AbstractService<User> implements UserService {
