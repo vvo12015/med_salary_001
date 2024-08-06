@@ -1,12 +1,12 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.dto.CreatedUserDTO;
-import net.vrakin.med_salary.dto.UpdateUserDTO;
+import net.vrakin.med_salary.dto.UserSavedDTO;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.Department;
 import net.vrakin.med_salary.entity.Role;
 import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.IdMismatchException;
+import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.mapper.UserMapper;
 import net.vrakin.med_salary.service.DepartmentService;
@@ -104,7 +104,11 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserDTO> add(@RequestBody CreatedUserDTO userDto) {
+    public ResponseEntity<UserDTO> add(@RequestBody UserSavedDTO userDto) {
+
+        if (userDto.getId() != null) {
+            throw new ResourceExistException("UserId", userDto.getId().toString());
+        }
 
         User user = userMapper.toEntity(userDto);
 
@@ -120,7 +124,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UpdateUserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserSavedDTO userDTO) {
 
         if (!userDTO.getId().equals(id)){
             throw new IdMismatchException("User", id.toString(), userDTO.getId().toString());

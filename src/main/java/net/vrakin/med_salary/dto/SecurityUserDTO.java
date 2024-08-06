@@ -8,6 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class SavedRoleDTO {
-    private String name;
+public class SecurityUserDTO {
+    private Long id;
+    private String login;
+    private String securityRole;
 }

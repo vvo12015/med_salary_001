@@ -1,8 +1,7 @@
 package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
-import net.vrakin.med_salary.dto.CreatedUserDTO;
-import net.vrakin.med_salary.dto.UpdateUserDTO;
+import net.vrakin.med_salary.dto.UserSavedDTO;
 import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.Department;
 import net.vrakin.med_salary.entity.Role;
@@ -37,34 +36,13 @@ public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
     @Mapping(target = "department", source = "department")
     public abstract UserDTO toDto(User entity);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "department", ignore = true)
     @Mapping(target = "roles", ignore = true)
-    public abstract User toEntity(CreatedUserDTO dto);
+    public abstract User toEntity(UserSavedDTO dto);
 
-    @Mapping(target = "department", ignore = true)
-    @Mapping(target = "roles", ignore = true)
-    public abstract User toEntity(UpdateUserDTO dto);
 
     @AfterMapping
-    protected void linkDepartmentAndRoles(CreatedUserDTO userDTO, @MappingTarget User user) {
-
-        Long departmentId = userDTO.getDepartmentId();
-        List<Long> roleIds = userDTO.getRoleIds();
-
-        if (departmentId != null) {
-            Department department = departmentService.findById(departmentId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Department", "id", departmentId.toString()));
-            user.setDepartment(department);
-        }
-
-        if (roleIds != null && !roleIds.isEmpty()) {
-            user.setRoles(roleService.findAllById(roleIds));
-        }
-    }
-
-    @AfterMapping
-    protected void linkDepartmentAndRoles(UpdateUserDTO userDTO, @MappingTarget User user) {
+    protected void linkDepartmentAndRoles(UserSavedDTO userDTO, @MappingTarget User user) {
 
         Long departmentId = userDTO.getDepartmentId();
         List<Long> roleIds = userDTO.getRoleIds();

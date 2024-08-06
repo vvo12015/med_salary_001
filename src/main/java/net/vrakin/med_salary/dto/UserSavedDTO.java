@@ -9,7 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CreatedUserDTO {
+public class UserSavedDTO {
+    private Long id;
     private String name;
     private String login;
     private String password;

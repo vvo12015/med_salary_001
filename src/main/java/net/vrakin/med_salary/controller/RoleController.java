@@ -2,11 +2,9 @@ package net.vrakin.med_salary.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.vrakin.med_salary.dto.RoleDTO;
-import net.vrakin.med_salary.dto.SavedRoleDTO;
-import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.entity.Role;
-import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.IdMismatchException;
+import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.mapper.RoleMapper;
 import net.vrakin.med_salary.service.RoleService;
@@ -47,9 +45,11 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<RoleDTO> add(@RequestBody SavedRoleDTO roleDTO) {
+    public ResponseEntity<RoleDTO> add(@RequestBody RoleDTO roleDTO) {
 
-        log.info("RoleDTO from request {}", roleDTO.toString());
+        if (roleDTO.getId() != null) {
+            throw new ResourceExistException("RoleId", roleDTO.getId().toString());
+        }
 
         Role role = roleService.save(roleMapper.toEntity(roleDTO));
 

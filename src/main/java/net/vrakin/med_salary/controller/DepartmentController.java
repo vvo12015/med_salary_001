@@ -1,14 +1,13 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.dto.CreatedDepartmentDTO;
 import net.vrakin.med_salary.dto.DepartmentDTO;
-import net.vrakin.med_salary.dto.UpdatedDepartmentDTO;
+import net.vrakin.med_salary.dto.DepartmentSavedDTO;
 import net.vrakin.med_salary.entity.Department;
 import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.IdMismatchException;
+import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.mapper.DepartmentMapper;
-import net.vrakin.med_salary.service.AbstractService;
 import net.vrakin.med_salary.service.DepartmentService;
 import net.vrakin.med_salary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,11 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public ResponseEntity<DepartmentDTO> add(@RequestBody CreatedDepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> add(@RequestBody DepartmentSavedDTO departmentDTO) {
+
+        if (departmentDTO.getId() != null) {
+            throw new ResourceExistException("DepartmentId", departmentDTO.getId().toString());
+        }
 
         Department department = departmentService.save(departmentMapper.toEntity(departmentDTO));
 
@@ -66,9 +69,10 @@ public class DepartmentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DepartmentDTO> updateDepartment(@PathVariable Long id, @RequestBody UpdatedDepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentDTO> updateDepartment(@PathVariable Long id, @RequestBody DepartmentSavedDTO departmentDTO) {
+
         if (!departmentDTO.getId().equals(id)){
-            throw new IdMismatchException("RoleDTO", id.toString(), departmentDTO.getId().toString());
+            throw new IdMismatchException("Department", id.toString(), departmentDTO.getId().toString());
         }
 
         departmentService.findById(id)

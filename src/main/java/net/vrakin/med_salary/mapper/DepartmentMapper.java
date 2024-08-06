@@ -1,9 +1,8 @@
 package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
-import net.vrakin.med_salary.dto.CreatedDepartmentDTO;
 import net.vrakin.med_salary.dto.DepartmentDTO;
-import net.vrakin.med_salary.dto.UpdatedDepartmentDTO;
+import net.vrakin.med_salary.dto.DepartmentSavedDTO;
 import net.vrakin.med_salary.entity.Department;
 import net.vrakin.med_salary.entity.User;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
@@ -32,26 +31,11 @@ public abstract class DepartmentMapper extends AbstractMapper<Department, Depart
     @Mapping(target = "manager", ignore = true)
     public abstract Department toEntity(DepartmentDTO dto);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "manager", ignore = true)
-    public abstract Department toEntity(CreatedDepartmentDTO dto);
-
-    @Mapping(target = "manager", ignore = true)
-    public abstract Department toEntity(UpdatedDepartmentDTO dto);
+    public abstract Department toEntity(DepartmentSavedDTO dto);
 
     @AfterMapping
-    protected void likeManager(CreatedDepartmentDTO departmentDTO, @MappingTarget Department department){
-        Long managerId = departmentDTO.getManagerId();
-
-        if (managerId != null) {
-            User manager = userService.findById(managerId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Manager", "id", managerId.toString()));
-            department.setManager(manager);
-        }
-    }
-
-    @AfterMapping
-    protected void likeManager(UpdatedDepartmentDTO departmentDTO, @MappingTarget Department department){
+    protected void likeManager(DepartmentSavedDTO departmentDTO, @MappingTarget Department department){
         Long managerId = departmentDTO.getManagerId();
 
         if (managerId != null) {
