@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
     private final UserMapper userMapper;
@@ -31,10 +31,10 @@ public class UserController {
     private final RoleService roleService;
 
     @Autowired
-    public UserController(UserService userService,
-                          UserMapper userMapper,
-                          DepartmentService departmentService,
-                          RoleService roleService) {
+    public UserRestController(UserService userService,
+                              UserMapper userMapper,
+                              DepartmentService departmentService,
+                              RoleService roleService) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.departmentService = departmentService;

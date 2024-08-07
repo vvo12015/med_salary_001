@@ -19,16 +19,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/departments")
-public class DepartmentController {
+public class DepartmentRestController {
 
     private final DepartmentService departmentService;
     private final UserService userService;
     private final DepartmentMapper departmentMapper;
 
     @Autowired
-    public DepartmentController(DepartmentService departmentService,
-                                UserService userService,
-                                DepartmentMapper departmentMapper) {
+    public DepartmentRestController(DepartmentService departmentService,
+                                    UserService userService,
+                                    DepartmentMapper departmentMapper) {
         this.userService = userService;
         this.departmentService = departmentService;
         this.departmentMapper = departmentMapper;

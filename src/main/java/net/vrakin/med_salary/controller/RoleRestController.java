@@ -18,14 +18,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/roles")
 @Slf4j
-public class RoleController {
+public class RoleRestController {
 
     private final RoleService roleService;
     private final RoleMapper roleMapper;
 
     @Autowired
-    public RoleController(RoleMapper roleMapper,
-                          RoleService roleService) {
+    public RoleRestController(RoleMapper roleMapper,
+                              RoleService roleService) {
         this.roleMapper = roleMapper;
         this.roleService = roleService;
     }
