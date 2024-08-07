@@ -52,6 +52,6 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
 
     @Override
     public List<User> findByNameLike(String namePattern) {
-        return userRepository.findByNameLike(namePattern);
+        return userRepository.findByNameLike(namePattern+"%");
     }
 }

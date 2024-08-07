@@ -9,21 +9,22 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
-    private SecurityUserRepository securityUserRepository;
+public class SecurityUserService implements UserDetailsService {
 
-    public CustomUserDetailsService(SecurityUserRepository securityUserRepository) {
-        this.securityUserRepository = securityUserRepository;
-    }
+    private final SecurityUserRepository securityUserRepository;
 
     @Autowired
-
+    public SecurityUserService(SecurityUserRepository securityUserRepository) {
+        this.securityUserRepository = securityUserRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String loginOrEmail) throws UsernameNotFoundException {
