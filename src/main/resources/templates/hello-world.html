@@ -16,12 +16,12 @@
             <th>Address</th>
         </thead>
         <tbody>
-            <tr>
-                <td th:text="*{user.login}"></td>
-                <td th:text="*{user.securityRole}"></td>
-                <td th:text="*{user.email}"></td>
-                <td th:text="*{user.phone}"></td>
-                <td th:text="*{user.address}")</td>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.login}"></td>
+                <td th:text="${user.securityRole}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phone}"></td>
+                <td th:text="${user.address}"></td>
             </tr>
         </tbody>
     </table>

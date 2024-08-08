@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/web/s-users")
 public class SecurityUserController {
@@ -25,8 +27,8 @@ public class SecurityUserController {
 
     @GetMapping
     public String getFirstUser(Model model) {
-        SecurityUser securityUser = securityUserService.findAll().stream().findFirst().get();
-        model.addAttribute("user", securityUserMapper.toDto(securityUser));
+        List<SecurityUser> securityUsers = securityUserService.findAll();
+        model.addAttribute("users", securityUserMapper.toDtoList(securityUsers));
 
         return "hello-world";
     }
