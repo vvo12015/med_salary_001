@@ -42,13 +42,16 @@ public class SpringSecurityConfig {
                     authorize.requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.GET, "/web/**").hasAnyRole("ADMIN", "USER");
-                    authorize.requestMatchers(HttpMethod.GET, "/hello-world").hasAnyRole("ADMIN", "USER");
-                    authorize.requestMatchers(HttpMethod.GET, "/message-expression").hasAnyRole("ADMIN", "USER");
+                    authorize.requestMatchers(HttpMethod.GET, "/").hasAnyRole("ADMIN", "USER");
+                    authorize.requestMatchers(HttpMethod.GET, "/index").hasAnyRole("ADMIN", "USER");
+                    authorize.requestMatchers(HttpMethod.GET, "/admin").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers("/login", "/logout").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/admin", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

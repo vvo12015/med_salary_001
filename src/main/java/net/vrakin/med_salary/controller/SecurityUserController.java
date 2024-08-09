@@ -30,6 +30,6 @@ public class SecurityUserController {
         List<SecurityUser> securityUsers = securityUserService.findAll();
         model.addAttribute("users", securityUserMapper.toDtoList(securityUsers));
 
-        return "hello-world";
+        return "admin";
     }
 }

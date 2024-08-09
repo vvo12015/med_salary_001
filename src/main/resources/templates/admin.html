@@ -1,44 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ua">
+<html xmlns:th="https://www.thymeleaf.org" lang="ua">
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.1/css/bootstrap.min.css}" />
-    <style>
-        body {
-            background-color: #2e8b57; /* Смарагдовий колір */
-            color: #fff;
-        }
-        #adminPage {
-            display: flex;
-        }
-
-        #userTableContainer {
-            flex-grow: 1; /* Зробити таблицю на всю ширину */
-        }
-
-        #adminControls.hidden {
-            display: none;
-        }
-
-        #userTableContainer.full-width {
-            width: 100%;
-        }
-
-        .form-control {
-            margin-bottom: 10px;
-        }
-        .table {
-            margin-top: 20px;
-            background-color: #fff;
-            color: #000;
-        }
-        .table th, .table td {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/custom.css}" />
 </head>
-<body>
+<body class="body-admin">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Admin Panel</a>
@@ -90,10 +58,10 @@
         </table>
     </div>
 </div>
-
 <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
-
+</body>
+</html>
 <script>
     $(document).ready(function() {
         checkUserRole();
@@ -110,9 +78,9 @@
     var currentUserRole = null;
 
     function checkUserRole() {
-        $.get("/api/s-users/current-user", function(data) {
+        $.get("/api/s-users/current-role", function(data) {
             console.log("user: ", data);
-            if (data === 'ADMIN') {
+            if (data === 'ROLE_ADMIN') {
                 $("#adminControls").show(); // Відображаємо форму
                 $("#userTableContainer").removeClass("full-width");
                 loadRoles(); // Завантажуємо ролі в select
@@ -229,6 +197,3 @@
         }
     }
 </script>
-
-</body>
-</html>
