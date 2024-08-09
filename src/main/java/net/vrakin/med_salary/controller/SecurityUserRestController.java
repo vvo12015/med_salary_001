@@ -11,9 +11,16 @@ import net.vrakin.med_salary.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.util.EnumUtils;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -67,6 +74,35 @@ public class SecurityUserRestController {
         List<SecurityUserDTO> users = securityUserMapper.toDtoList(securityUserService.findBySecurityRole(SecurityRole.valueOf(securityRoleName)));
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/security-roles")
+    public ResponseEntity<List<String>> getRoles(){
+
+        List<String> securityRoles = Arrays.stream(SecurityRole.values()).sorted().map(SecurityRole::name).toList();
+
+        return new ResponseEntity<>(securityRoles, HttpStatus.OK);
+    }
+
+    @GetMapping("/current-role")
+    public ResponseEntity<String> getCurrentUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+            if (!authorities.isEmpty()) {
+                String role = authorities.iterator().next().getAuthority();
+                return new ResponseEntity<>(role, HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    @GetMapping("/current-user")
+    public ResponseEntity<UserDetails> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
 
     @PostMapping

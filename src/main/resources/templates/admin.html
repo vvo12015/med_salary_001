@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.1/css/bootstrap.min.css}" />
+    <style>
+        body {
+            background-color: #2e8b57; /* Смарагдовий колір */
+            color: #fff;
+        }
+        #adminPage {
+            display: flex;
+        }
+
+        #userTableContainer {
+            flex-grow: 1; /* Зробити таблицю на всю ширину */
+        }
+
+        #adminControls.hidden {
+            display: none;
+        }
+
+        #userTableContainer.full-width {
+            width: 100%;
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .table {
+            margin-top: 20px;
+            background-color: #fff;
+            color: #000;
+        }
+        .table th, .table td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <button id="logoutButton" class="btn btn-danger">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1 class="text-center">Адмін панель - Користувачі</h1>
+<div id="adminPage" class="d-flex">
+    <div id="adminControls" class="p-3" style="display:none; flex: 1;">
+        <h3>Додати/Редагувати Користувача</h3>
+        <form id="userForm">
+            <input type="hidden" id="userId">
+            <input type="text" id="login" class="form-control" placeholder="Логін" required>
+            <input type="password" id="password" class="form-control" placeholder="Пароль" required>
+            <div class="mb-3">
+                <label for="securityRole" class="form-label">Security Role</label>
+                <select class="form-select" id="securityRole" name="securityRole">
+                </select>
+            </div>
+            <input type="email" id="email" class="form-control" placeholder="Email" required>
+            <input type="text" id="phone" class="form-control" placeholder="Телефон" required>
+            <input type="text" id="address" class="form-control" placeholder="Адреса" required>
+            <button type="button" class="btn btn-success" onclick="saveUser()">Зберегти</button>
+        </form>
+    </div>
+
+    <div id="userTableContainer" class="p-3 flex-grow-1">
+        <h3>Список Користувачів</h3>
+        <table id="usersTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Логін</th>
+                <th>Роль</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Адреса</th>
+                <th>Дії</th>
+            </tr>
+            </thead>
+            <tbody id="userTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
+
+<script>
+    $(document).ready(function() {
+        checkUserRole();
+        loadUsers();
+
+        $("#logoutButton").click(function() {
+            $.post("/logout", function() {
+                window.location.href = "/login"; // Перенаправлення на сторінку входу після логауту
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.log("Помилка при логауті:", textStatus, errorThrown);
+            });
+        });
+    });
+    var currentUserRole = null;
+
+    function checkUserRole() {
+        $.get("/api/s-users/current-user", function(data) {
+            console.log("user: ", data);
+            if (data === 'ADMIN') {
+                $("#adminControls").show(); // Відображаємо форму
+                $("#userTableContainer").removeClass("full-width");
+                loadRoles(); // Завантажуємо ролі в select
+            } else {
+                $("#adminControls").hide(); // Приховуємо форму
+                $("#userTableContainer").addClass("full-width");
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log("Помилка при перевірці ролі користувача:", textStatus, errorThrown);
+        });
+    }
+
+
+    function loadUsers() {
+        $.get("/api/s-users", function(data) {
+            console.log("Отримані дані від API:", data); // Додано для діагностики
+            var tbody = $("#userTableBody");
+            tbody.empty();
+            data.forEach(function(user) {
+                var row = `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.login}</td>
+                    <td>${user.securityRole}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.address}</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="editUser(${user.id})">Редагувати</button>
+                        <button class="btn btn-danger" onclick="deleteUser(${user.id})">Видалити</button>
+                    </td>
+                </tr>
+            `;
+                tbody.append(row);
+            });
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log("Помилка при завантаженні користувачів:", textStatus, errorThrown);
+        });
+    }
+
+    function loadRoles() {
+        $.get("/api/s-users/security-roles", function(data) {
+            var roleSelect = $("#securityRole");
+            roleSelect.empty();
+            data.forEach(function(role) {
+                var option = `<option value="${role}">${role}</option>`;
+                roleSelect.append(option);
+            });
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log("Помилка при завантаженні ролей:", textStatus, errorThrown);
+        });
+    }
+
+
+    function saveUser() {
+        var id = $("#userId").val();
+        var user = {
+            login: $("#login").val(),
+            password: $("#password").val(),
+            securityRole: $("#securityRole").val(),
+            email: $("#email").val(),
+            phone: $("#phone").val(),
+            address: $("#address").val()
+        };
+
+        if (id) {
+            user.id = id;
+            $.ajax({
+                url: "/api/s-users/" + id,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(user),
+                success: function() {
+                    loadUsers();
+                    $("#userForm")[0].reset();
+                    $("#userId").val("");
+                }
+            });
+        } else {
+            $.ajax({
+                url: "/api/s-users",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(user),
+                success: function() {
+                    loadUsers();
+                    $("#userForm")[0].reset();
+                }
+            });
+        }
+    }
+
+    function editUser(id) {
+        $.get("/api/s-users/" + id, function(data) {
+            $("#userId").val(data.id);
+            $("#login").val(data.login);
+            $("#password").val(data.password);
+            $("#securityRole").val(data.securityRole);
+            $("#email").val(data.email);
+            $("#phone").val(data.phone);
+            $("#address").val(data.address);
+        });
+    }
+
+    function deleteUser(id) {
+        if (confirm("Ви впевнені, що хочете видалити цього користувача?")) {
+            $.ajax({
+                url: "/api/s-users/" + id,
+                type: "DELETE",
+                success: function() {
+                    loadUsers();
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
