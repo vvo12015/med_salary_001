@@ -2,7 +2,6 @@ package net.vrakin.med_salary.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@ToString
 @Table(name="users")
 public class User {
     @Id
@@ -44,4 +42,19 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_position_user")
+    List<UserPositionUser> userPositionUserList;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", name='" + name + '\'' +
+                ", specialityName='" + specialityName + '\'' +
+                ", department=" + department +
+                ", isDisable=" + isDisable +
+                '}';
+    }
 }
