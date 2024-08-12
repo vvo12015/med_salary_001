@@ -43,7 +43,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_position_user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     List<UserPositionUser> userPositionUserList;
 
     @Override

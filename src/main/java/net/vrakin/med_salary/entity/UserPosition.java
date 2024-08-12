@@ -20,7 +20,7 @@ public class UserPosition {
     @Column(unique=true, nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user_position_user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPosition")
     List<UserPositionUser> userPositionUserList;
 
     @Override

@@ -24,6 +24,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(IllegalAccessException.class)
+    public ResponseEntity<ErrorDetails> handleIllegalAccessException(ReflectionIllegalAccessException ex, WebRequest request) {
+        ErrorDetails errorDetails = ErrorDetails.builder()
+                .timestamp(LocalDate.now())
+                .message(ex.getMessage())
+                .path(request.getDescription(false))
+                .errorCode(ex.getResourceName().toUpperCase() + "_NOT_ACCESS")
+                .build();
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(IdMismatchException.class)
     public ResponseEntity<ErrorDetails> handleIdMismatchException(IdMismatchException ex, WebRequest request) {
         ErrorDetails errorDetails = ErrorDetails.builder()

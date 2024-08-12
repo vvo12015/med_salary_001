@@ -1,5 +1,6 @@
 package net.vrakin.med_salary.config;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.med_salary.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
+@Slf4j
 public class SpringSecurityConfig {
 
     private final UserDetailsService userDetailsService;
@@ -37,7 +39,6 @@ public class SpringSecurityConfig {
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers(HttpMethod.GET, "/").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN");
                     authorize.requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN");
@@ -45,9 +46,10 @@ public class SpringSecurityConfig {
                     authorize.requestMatchers(HttpMethod.GET, "/web/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.GET, "/index").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.GET, "/admin").hasAnyRole("ADMIN", "USER");
+                    authorize.requestMatchers(HttpMethod.GET, "/nadmin").hasAnyRole("ADMIN", "USER");
+                    authorize.requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**").permitAll();
                     authorize.requestMatchers("/login", "/logout").permitAll();
                     authorize.requestMatchers("/").permitAll();
-                    authorize.anyRequest().authenticated();
                 })
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
@@ -63,6 +65,7 @@ public class SpringSecurityConfig {
                         .permitAll()
                 );
 
+        log.info(httpSecurity.toString());
         return httpSecurity.build();
     }
 
