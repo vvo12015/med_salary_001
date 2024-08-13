@@ -34,7 +34,7 @@ public class HomeController {
 
         mav.addObject("users", userService.findAll());
         mav.addObject("pageTitle", "User Manager");
-        return "nadmin";
+        return mav;
     }
 
     @GetMapping("/login")

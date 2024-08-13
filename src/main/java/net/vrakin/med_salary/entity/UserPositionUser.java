@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@ToString
 @Table(name="user_position_user")
 public class UserPositionUser {
     @Id
@@ -29,4 +28,14 @@ public class UserPositionUser {
 
     @Column
     private Float employment;
+
+    @Override
+    public String toString() {
+        return "UserPositionUser{" +
+                "id=" + id +
+                ", username=" + user.getName() +
+                ", userPositionName=" + userPosition.getName() +
+                ", employment=" + employment +
+                '}';
+    }
 }

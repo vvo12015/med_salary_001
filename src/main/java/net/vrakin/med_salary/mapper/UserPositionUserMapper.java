@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 @NoArgsConstructor
-public abstract class UserPositionUserMapper extends AbstractMapper<User, UserDTO> {
+public abstract class UserPositionUserMapper extends AbstractMapper<UserPositionUser, UserPositionUserDTO> {
 
     private UserService userService;
     private UserPositionService userPositionService;
@@ -47,8 +47,8 @@ public abstract class UserPositionUserMapper extends AbstractMapper<User, UserDT
         this.userPositionMapper = userPositionMapper;
     }
 
-    @Mapping(target = "user", source = "user")
-    @Mapping(target = "userPosition", source = "userPosition")
+    @Mapping(target = "userDTO", source = "user")
+    @Mapping(target = "userPositionDTO", source = "userPosition")
     public abstract UserPositionUserDTO toDto(UserPositionUser entity);
 
     @Mapping(target = "user", ignore = true)
@@ -63,27 +63,25 @@ public abstract class UserPositionUserMapper extends AbstractMapper<User, UserDT
         return userPositionMapper.toDto(userPosition);
     }
 
-    protected UserPositionUser map(UserPositionUserSavedDTO userPositionUserDTO) {
+    @AfterMapping
+    protected void linkUserUserAndPositionAndId(UserPositionUserSavedDTO userPositionUserSavedDTO,
+                                          @MappingTarget UserPositionUser userPositionUser) {
+
         User user = userService
-                .findById(userPositionUserDTO.getUserId())
+                .findById(userPositionUserSavedDTO.getUserId())
                 .orElseThrow(()->
-                        new ResourceNotFoundException("User", "id:", userPositionUserDTO.getUserId().toString())
+                        new ResourceNotFoundException("User", "id:", userPositionUserSavedDTO.getUserId().toString())
                 );
-        UserPosition userPosition = userPositionService.findById(userPositionUserDTO.getUserPositionId())
+        UserPosition userPosition = userPositionService.findById(userPositionUserSavedDTO.getUserPositionId())
                 .orElseThrow(()->
-                        new ResourceNotFoundException("UserPosition", "id:", userPositionUserDTO.getUserPositionId().toString())
+                        new ResourceNotFoundException("UserPosition", "id:", userPositionUserSavedDTO.getUserPositionId().toString())
                 );
 
-        UserPositionUser userPositionUser = new UserPositionUser();
-
-        if (userPositionUserDTO.getId() != null){
-            userPositionUser.setId(userPositionUserDTO.getId());
+        if (userPositionUserSavedDTO.getId() != null){
+            userPositionUser.setId(userPositionUserSavedDTO.getId());
         }
 
         userPositionUser.setUser(user);
         userPositionUser.setUserPosition(userPosition);
-        userPositionUser.setEmployment(userPositionUserDTO.getEmployment());
-
-        return userPositionUser;
     }
 }
