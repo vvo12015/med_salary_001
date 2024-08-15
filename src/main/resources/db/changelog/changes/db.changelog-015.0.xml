@@ -1,0 +1,58 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet  id="26"  author="vvo12015">
+        <createTable tableName="nszu_decryption">
+            <column name="year" type="INT"/>
+            <column name="month" type="INT"/>
+            <column name="recordKind" type="VARCHAR(255)"/>
+            <column name="recordID" type="VARCHAR(255)"/>
+            <column name="creationDate" type="TIMESTAMP"/>
+            <column name="executorUserPosition" type="VARCHAR(255)"/>
+            <column name="executorName" type="VARCHAR(255)"/>
+            <column name="providerPlace" type="VARCHAR(255)"/>
+            <column name="referralKind" type="VARCHAR(255)"/>
+            <column name="EDRPOU" type="VARCHAR(255)"/>
+            <column name="referringUserPosition" type="VARCHAR(255)"/>
+            <column name="episodeId" type="VARCHAR(255)"/>
+            <column name="episodeKind" type="VARCHAR(255)"/>
+            <column name="episodeStartDate" type="TIMESTAMP"/>
+            <column name="periodStartDate" type="TIMESTAMP"/>
+            <column name="periodEndDate" type="TIMESTAMP"/>
+            <column name="periodLenght" type="INT"/>
+            <column name="mainDiagnosis" type="VARCHAR(255)"/>
+            <column name="mainDiagnosisValidationStatus" type="VARCHAR(255)"/>
+            <column name="mainDiagnosisClinicalStatus" type="VARCHAR(255)"/>
+            <column name="additionalDiagnosis" type="VARCHAR(255)"/>
+            <column name="refutedErrorAdditionalDiagnosis" type="VARCHAR(255)"/>
+            <column name="serviceList" type="VARCHAR(255)"/>
+            <column name="interactionClass" type="VARCHAR(255)"/><!--клас взаємодії-->
+            <column name="priority" type="VARCHAR(255)"/>
+            <column name="interactionKind" type="VARCHAR(255)"/><!--тип взаємодії-->
+            <column name="groundsHospitalization" type="VARCHAR(255)"/><!--підстава госпіталізації-->
+            <column name="resultTreatment" type="VARCHAR(255)"/><!--результат лікування-->
+            <column name="patientID" type="VARCHAR(255)"/>
+            <column name="presenceDeclaration" type="BOOLEAN"/><!--наявність декларації-->
+            <column name="patientSex" type="VARCHAR(255)"/>
+            <column name="patientWeight" type="FLOAT"/>
+            <column name="patientAgeDays" type="INT"/>
+            <column name="patientAgeYears" type="INT"/>
+            <column name="ADSG" type="VARCHAR(255)"/>
+            <column name="servicePackage" type="VARCHAR(255)"/>
+            <column name="servicePackageNumber" type="VARCHAR(255)"/>
+            <column name="tariffUAH" type="FLOAT"/>
+            <column name="paymentFact" type="VARCHAR(255)"/>
+            <column name="statisticStatus" type="BOOLEAN"/>
+            <column name="reportStatus" type="BOOLEAN"/>
+            <column name="errorComment" type="VARCHAR(255)"/>
+            <column name="errorDetails" type="VARCHAR(255)"/>
+            <column name="detailsRequireVerification" type="VARCHAR(255)"/>
+            <column name="groupErrorDetails" type="VARCHAR(255)"/>
+            <column name="detailsPreviewNSZU" type="VARCHAR(255)"/>
+            <column name="additionalComment" type="VARCHAR(255)"/>
+            <column name="datePreviewNSZU" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

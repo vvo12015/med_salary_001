@@ -1,0 +1,67 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet  id="28"  author="vvo12015">
+        <dropTable tableName="nszu_decryption"/>
+        <createTable tableName="nszu_decryption">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="year" type="INT"/>
+            <column name="month" type="INT"/>
+            <column name="record_kind" type="VARCHAR(255)"/>
+            <column name="record_id" type="VARCHAR(255)"/>
+            <column name="creation_date" type="TIMESTAMP"/>
+            <column name="executor_user_position" type="VARCHAR(255)"/>
+            <column name="executor_name" type="VARCHAR(255)"/>
+            <column name="provider_place" type="VARCHAR(255)"/>
+            <column name="referral_kind" type="VARCHAR(255)"/>
+            <column name="edrpou" type="VARCHAR(255)"/>
+            <column name="referring_user_position" type="VARCHAR(255)"/>
+            <column name="episode_id" type="VARCHAR(255)"/>
+            <column name="episode_kind" type="VARCHAR(255)"/>
+            <column name="episode_start_date" type="TIMESTAMP"/>
+            <column name="period_start_date" type="TIMESTAMP"/>
+            <column name="period_end_date" type="TIMESTAMP"/>
+            <column name="period_lenght" type="INT"/>
+            <column name="main_diagnosis" type="VARCHAR(255)"/>
+            <column name="main_diagnosis_validation_status" type="VARCHAR(255)"/>
+            <column name="main_diagnosis_clinical_status" type="VARCHAR(255)"/>
+            <column name="additional_diagnosis" type="VARCHAR(255)"/>
+            <column name="refuted_error_additional_diagnosis" type="VARCHAR(255)"/>
+            <column name="service_list" type="VARCHAR(255)"/>
+            <column name="interaction_class" type="VARCHAR(255)"/><!--клас взаємодії-->
+            <column name="priority" type="VARCHAR(255)"/>
+            <column name="interaction_kind" type="VARCHAR(255)"/><!--тип взаємодії-->
+            <column name="grounds_hospitalization" type="VARCHAR(255)"/><!--підстава госпіталізації-->
+            <column name="result_treatment" type="VARCHAR(255)"/><!--результат лікування-->
+            <column name="patient_id" type="VARCHAR(255)"/>
+            <column name="presence_declaration" type="BOOLEAN"/><!--наявність декларації-->
+            <column name="patient_sex" type="VARCHAR(255)"/>
+            <column name="patient_weight" type="FLOAT"/>
+            <column name="patient_age_days" type="INT"/>
+            <column name="patient_age_years" type="INT"/>
+            <column name="adsg" type="VARCHAR(255)"/>
+            <column name="service_package" type="VARCHAR(255)"/>
+            <column name="service_package_number" type="VARCHAR(255)"/>
+            <column name="tariff_uah" type="FLOAT"/>
+            <column name="payment_fact" type="VARCHAR(255)"/>
+            <column name="statistic_status" type="BOOLEAN"/>
+            <column name="report_status" type="BOOLEAN"/>
+            <column name="error_comment" type="VARCHAR(255)"/>
+            <column name="error_details" type="VARCHAR(255)"/>
+            <column name="details_require_verification" type="VARCHAR(255)"/>
+            <column name="group_error_details" type="VARCHAR(255)"/>
+            <column name="details_preview_nszu" type="VARCHAR(255)"/>
+            <column name="additional_comment" type="VARCHAR(255)"/>
+            <column name="date_preview_nszu" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="29" author="vvo12015">
+        <modifyDataType tableName="nszu_decryption" columnName="presence_declaration" newDataType="BIT"/>
+        <modifyDataType tableName="nszu_decryption" columnName="statistic_status" newDataType="BIT"/>
+        <modifyDataType tableName="nszu_decryption" columnName="report_status" newDataType="BIT"/>
+    </changeSet>
+</databaseChangeLog>
