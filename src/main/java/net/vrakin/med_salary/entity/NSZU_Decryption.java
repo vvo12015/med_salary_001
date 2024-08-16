@@ -1,5 +1,7 @@
 package net.vrakin.med_salary.entity;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,6 +46,8 @@ public class NSZU_Decryption {
     private String referralKind;
 
     @Column(name = "edrpou", length = 255)
+    @Getter(onMethod_ = {@JsonGetter("EDRPOU")})
+    @Setter(onMethod_ = {@JsonSetter("EDRPOU")})
     private String EDRPOU;
 
     @Column(name = "referring_user_position", length = 255)
@@ -119,6 +123,8 @@ public class NSZU_Decryption {
     private int patientAgeYears;
 
     @Column(name = "adsg", length = 255)
+    @Getter(onMethod_ = {@JsonGetter("ADSG")})
+    @Setter(onMethod_ = {@JsonSetter("ADSG")})
     private String ADSG;
 
     @Column(name = "service_package", length = 255)

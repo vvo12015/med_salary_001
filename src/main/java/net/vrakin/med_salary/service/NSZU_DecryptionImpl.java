@@ -47,4 +47,9 @@ public class NSZU_DecryptionImpl extends AbstractService<NSZU_Decryption> implem
     public List<NSZU_Decryption> findByServicePackage(String servicePackage) {
         return nszuDecryptionRepository.findByServicePackage(servicePackage);
     }
+
+    @Override
+    public List<NSZU_Decryption> findByExecutorName(String executorName) {
+        return nszuDecryptionRepository.findByExecutorName(executorName);
+    }
 }

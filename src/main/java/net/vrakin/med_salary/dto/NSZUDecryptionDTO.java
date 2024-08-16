@@ -1,5 +1,7 @@
 package net.vrakin.med_salary.dto;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class NSZU_Decryption_DTO {
+public class NSZUDecryptionDTO {
 
     private Long id;
 
@@ -32,6 +34,8 @@ public class NSZU_Decryption_DTO {
 
     private String referralKind;
 
+    @Getter(onMethod_ = {@JsonGetter("EDRPOU")})
+    @Setter(onMethod_ = {@JsonSetter("EDRPOU")})
     private String EDRPOU;
 
     private String referringUserPosition;
@@ -82,6 +86,8 @@ public class NSZU_Decryption_DTO {
 
     private int patientAgeYears;
 
+    @Getter(onMethod_ = {@JsonGetter("ADSG")})
+    @Setter(onMethod_ = {@JsonSetter("ADSG")})
     private String ADSG;
 
     private String servicePackage;

@@ -15,4 +15,6 @@ public interface NSZU_DecryptionService extends Service<NSZU_Decryption> {
     List<NSZU_Decryption> findByProviderPlace(String providerPlace);
 
     List<NSZU_Decryption> findByServicePackage(String servicePackage);
+
+    List<NSZU_Decryption> findByExecutorName(String executorName);
 }

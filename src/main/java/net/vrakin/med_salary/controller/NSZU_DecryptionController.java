@@ -1,17 +1,12 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.dto.UserSavedDTO;
-import net.vrakin.med_salary.dto.UserDTO;
-import net.vrakin.med_salary.entity.Department;
-import net.vrakin.med_salary.entity.Role;
-import net.vrakin.med_salary.entity.User;
+import net.vrakin.med_salary.dto.NSZUDecryptionDTO;
+import net.vrakin.med_salary.entity.NSZU_Decryption;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
-import net.vrakin.med_salary.mapper.UserMapper;
-import net.vrakin.med_salary.service.DepartmentService;
-import net.vrakin.med_salary.service.RoleService;
-import net.vrakin.med_salary.service.UserService;
+import net.vrakin.med_salary.mapper.NSZU_DecryptionMapper;
+import net.vrakin.med_salary.service.NSZU_DecryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,129 +15,164 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserRestController {
+@RequestMapping("/api/nzsu_decryption")
+public class NSZU_DecryptionController {
 
-    private final UserService userService;
-    private final UserMapper userMapper;
-
-    private final DepartmentService departmentService;
-
-    private final RoleService roleService;
+    private NSZU_DecryptionService nszuDecryptionService;
+    private NSZU_DecryptionMapper nszuDecryptionMapper;
 
     @Autowired
-    public UserRestController(UserService userService,
-                              UserMapper userMapper,
-                              DepartmentService departmentService,
-                              RoleService roleService) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-        this.departmentService = departmentService;
-        this.roleService = roleService;
+    public NSZU_DecryptionController(NSZU_DecryptionService nszuDecryptionService,
+                                     NSZU_DecryptionMapper nszuDecryptionMapper) {
+        this.nszuDecryptionMapper = nszuDecryptionMapper;
+        this.nszuDecryptionService = nszuDecryptionService;
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAll() {
-        List<UserDTO> users = userMapper.toDtoList(userService.findAll());
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<NSZUDecryptionDTO>> getAll() {
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper.toDtoList(nszuDecryptionService.findAll());
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
-        User user = userService.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("User", "id", id.toString()));
+    public ResponseEntity<NSZUDecryptionDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
+        NSZU_Decryption nszuDecryption = nszuDecryptionService.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("NSZU_Decryption", "id", id.toString()));
 
-        UserDTO userDTO = userMapper.toDto(user);
+        NSZUDecryptionDTO nszuDecryptionDto = nszuDecryptionMapper.toDto(nszuDecryption);
 
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        return new ResponseEntity<>(nszuDecryptionDto, HttpStatus.OK);
     }
 
-    @GetMapping("/login/{login}")
-    public ResponseEntity<UserDTO> getByLogin(@PathVariable String login) throws ResourceNotFoundException {
-        User user = userService.findByLogin(login)
-                .orElseThrow(()->new ResourceNotFoundException("User", "login", login));
+    @GetMapping("/date")
+    public ResponseEntity<List<NSZUDecryptionDTO>> getByYearAndMonth(@RequestParam int year,
+                                                                      @RequestParam int month){
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper.toDtoList(
+                nszuDecryptionService.findByYearAndMonth(year, month));
 
-        UserDTO userDTO = userMapper.toDto(user);
-
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/name/{namePattern}")
-    public ResponseEntity<List<UserDTO>> getByLikeName(@PathVariable String namePattern) throws ResourceNotFoundException {
-        List<UserDTO> users = userMapper.toDtoList(userService.findByNameLike(namePattern));
+    @GetMapping("/recordKind/{recordKind}")
+    public ResponseEntity<List<NSZUDecryptionDTO>> getByRecordKind(@PathVariable String recordKind,
+                                                          @RequestParam int year, @RequestParam int month) {
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+                .toDtoList(nszuDecryptionService.findByRecordKind(recordKind).stream().filter(nszu_decryption -> {
+                    return ((nszu_decryption.getYear()==year)
+                            && (nszu_decryption.getYear()==month));
+                })
+                .toList());
+
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/department/{departmentRef}")
-    public ResponseEntity<List<UserDTO>> getByDepartment(@PathVariable Long departmentRef) throws ResourceNotFoundException {
+    @GetMapping("/providerPlace/{providerPlace}")
+    public ResponseEntity<List<NSZUDecryptionDTO>> getByProviderPlace(@PathVariable String providerPlace,
+                                                                      @RequestParam int year, @RequestParam int month){
 
-        Department department = departmentService.findById(departmentRef)
-                .orElseThrow(()->new ResourceNotFoundException("Department", "id", departmentRef.toString()));
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+                .toDtoList(nszuDecryptionService.findByProviderPlace(providerPlace).stream().filter(nszu_decryption -> {
+                            return ((nszu_decryption.getYear()==year)
+                                    && (nszu_decryption.getYear()==month));
+                        })
+                        .toList());
 
-        List<UserDTO> users = userMapper.toDtoList(userService.findByDepartment(department));
-
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/speciality/{name}")
-    public ResponseEntity<List<UserDTO>> getBySpecialityName(@PathVariable String name) throws ResourceNotFoundException {
-        List<UserDTO> users = userMapper.toDtoList(userService.findBySpecialty(name));
+    @GetMapping("/servicePackage/{servicePackage}")
+    public ResponseEntity<List<NSZUDecryptionDTO>> getByServicePackage(@PathVariable String servicePackage,
+                                                                      @RequestParam int year, @RequestParam int month){
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+                .toDtoList(nszuDecryptionService.findByServicePackage(servicePackage).stream().filter(nszu_decryption -> {
+                            return ((nszu_decryption.getYear()==year)
+                                    && (nszu_decryption.getMonth()==month));
+                        })
+                        .toList());
+
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/role/{roleRef}")
-    public ResponseEntity<List<UserDTO>> getByRole(@PathVariable Long roleRef) throws ResourceNotFoundException {
+    @GetMapping("/executorName/{executorName}")
+    public ResponseEntity<List<NSZUDecryptionDTO>> getByExecutorName(@PathVariable String executorName,
+                                                                       @RequestParam int year, @RequestParam int month){
 
-        Role role = roleService.findById(roleRef)
-                .orElseThrow(()->new ResourceNotFoundException("Role", "id", roleRef.toString()));
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+                .toDtoList(nszuDecryptionService.findByExecutorName(executorName));
 
-        List<UserDTO> users = userMapper.toDtoList(userService.findByRole(role));
-
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDTO> add(@RequestBody UserSavedDTO userDto) {
-
-        if (userDto.getId() != null) {
-            throw new ResourceExistException("UserId", userDto.getId().toString());
+        if ((year != 0) && (month != 0)){
+            nszuDecryptionDtoList = nszuDecryptionDtoList.stream().filter(nszu_decryption -> {
+                        return ((nszu_decryption.getYear()==year)
+                                && (nszu_decryption.getMonth()==month));
+                    })
+                    .toList();
         }
 
-        User user = userMapper.toEntity(userDto);
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
+    }
 
-        UserDTO savedUser = userMapper.toDto(userService.save(user));
+    @GetMapping("/executorName-userPosition/{executorName}/{userPosition}")
+    public ResponseEntity<List<NSZUDecryptionDTO>> getByExecutorNameAndUserPosition(
+            @PathVariable String executorName, @PathVariable String userPosition,
+                                                                     @RequestParam int year, @RequestParam int month){
 
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+                .toDtoList(nszuDecryptionService.findByExecutorNameAndExecutorUserPosition(executorName, userPosition));
+
+        if ((year != 0) && (month != 0)){
+            nszuDecryptionDtoList = nszuDecryptionDtoList.stream().filter(nszu_decryption -> {
+                        return ((nszu_decryption.getYear()==year)
+                                && (nszu_decryption.getMonth()==month));
+                    })
+                    .toList();
+        }
+
+        return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<NSZUDecryptionDTO> add(@RequestBody NSZUDecryptionDTO nszuDecryptionDTO) {
+
+        if (nszuDecryptionDTO.getId() != null) {
+            throw new ResourceExistException("NSZU_DecryptionDTO", nszuDecryptionDTO.getId().toString());
+        }
+
+        NSZU_Decryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
+
+        NSZUDecryptionDTO savedNSZUDecryption = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
+
+        return new ResponseEntity<>(savedNSZUDecryption, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         try {
-            userService.deleteById(id);
+            nszuDecryptionService.deleteById(id);
         }catch (ResourceNotFoundException e){
-            throw new ResourceNotFoundException("User", "id", id.toString());
+            throw new ResourceNotFoundException("NSZU_Decryption", "id", id.toString());
         }
-        return ResponseEntity.ok("User deleted successfully!.");
+        return ResponseEntity.ok("NSZU_Decryption deleted successfully!");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserSavedDTO userDTO) {
+    public ResponseEntity<NSZUDecryptionDTO> updateUser(@PathVariable Long id, @RequestBody NSZUDecryptionDTO nszuDecryptionDTO) {
 
-        if (!userDTO.getId().equals(id)){
-            throw new IdMismatchException("User", id.toString(), userDTO.getId().toString());
+        if (!nszuDecryptionDTO.getId().equals(id)){
+            throw new IdMismatchException("NSZUDecryptionDTO", id.toString(), nszuDecryptionDTO.getId().toString());
         }
 
-        userService.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("User", "id", id.toString()));
+        nszuDecryptionService.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("NSZUDecryption", "id", id.toString()));
 
 
-        User user = userMapper.toEntity(userDTO);
+        NSZU_Decryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
 
 
-        UserDTO savedUser = userMapper.toDto(userService.save(user));
+        NSZUDecryptionDTO savedNSZU_DecryptionDTO = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
 
-        return new ResponseEntity<>(savedUser, HttpStatus.OK);
+        return new ResponseEntity<>(savedNSZU_DecryptionDTO, HttpStatus.OK);
     }
 }
