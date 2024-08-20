@@ -5,7 +5,7 @@ import net.vrakin.med_salary.entity.UserPosition;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public abstract class UserPositionMapper extends AbstractMapper<UserPosition, UserPositionDTO> {
+public abstract class UserPositionMapper implements BaseMapper<UserPosition, UserPositionDTO> {
     @Override
     public abstract UserPositionDTO toDto(UserPosition entity);
 

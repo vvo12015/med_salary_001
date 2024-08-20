@@ -1,10 +1,10 @@
 package net.vrakin.med_salary;
 
+import net.vrakin.med_salary.service.StorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class MedSalaryApplication {
@@ -12,4 +12,11 @@ public class MedSalaryApplication {
 		SpringApplication.run(MedSalaryApplication.class, args);
 	}
 
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+			storageService.deleteAll();
+			storageService.init();
+		};
+	}
 }

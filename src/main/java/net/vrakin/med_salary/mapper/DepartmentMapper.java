@@ -13,9 +13,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 @NoArgsConstructor
-public abstract class DepartmentMapper extends AbstractMapper<Department, DepartmentDTO> {
+public abstract class DepartmentMapper implements BaseMapper<Department, DepartmentDTO> {
 
     private UserService userService;
 

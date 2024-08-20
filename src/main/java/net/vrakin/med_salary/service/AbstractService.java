@@ -1,14 +1,10 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.dto.UserDTO;
-import net.vrakin.med_salary.entity.Role;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
-import net.vrakin.med_salary.mapper.AbstractMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public abstract class AbstractService<E> {
     protected final JpaRepository<E, Long> repository;

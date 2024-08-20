@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public abstract class RoleMapper extends AbstractMapper<Role, RoleDTO> {
+public abstract class RoleMapper implements BaseMapper<Role, RoleDTO> {
     @Override
     public abstract RoleDTO toDto(Role entity);
 

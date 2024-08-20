@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 @NoArgsConstructor
-public abstract class UserMapper extends AbstractMapper<User, UserDTO> {
+public abstract class UserMapper implements BaseMapper<User, UserDTO> {
 
     private RoleService roleService;
     private DepartmentService departmentService;

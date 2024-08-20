@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 @NoArgsConstructor
-public abstract class UserPositionUserMapper extends AbstractMapper<UserPositionUser, UserPositionUserDTO> {
+public abstract class UserPositionUserMapper implements BaseMapper<UserPositionUser, UserPositionUserDTO> {
 
     private UserService userService;
     private UserPositionService userPositionService;
