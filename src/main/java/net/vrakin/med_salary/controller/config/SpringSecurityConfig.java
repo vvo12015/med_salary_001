@@ -48,7 +48,7 @@ public class SpringSecurityConfig {
                     authorize.requestMatchers(HttpMethod.GET, "/admin").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.GET, "/nadmin").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.GET, "/files").hasAnyRole("ADMIN", "USER");
-                    authorize.requestMatchers(HttpMethod.GET, "/files/**").hasAnyRole("ADMIN", "USER");
+//                    authorize.requestMatchers(HttpMethod.GET, "/files/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers(HttpMethod.POST, "/files/**").hasAnyRole("ADMIN", "USER");
                     authorize.requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**").permitAll();
                     authorize.requestMatchers("/login", "/logout").permitAll();
