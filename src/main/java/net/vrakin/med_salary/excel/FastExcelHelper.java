@@ -8,6 +8,7 @@ import org.dhatim.fastexcel.reader.Row;
 import org.dhatim.fastexcel.reader.Sheet;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,20 +22,28 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 public class FastExcelHelper implements ExcelHelper{
 
-    public List<String> readExcel(String fileLocation){
+    private final int startColNumber = 4
+
+    public List<String> readExcel(File fileLocation){
         List<String> stringList = new ArrayList<>();
 
         try (FileInputStream file = new FileInputStream(fileLocation); ReadableWorkbook wb = new ReadableWorkbook(file)) {
             Sheet sheet = wb.getFirstSheet();
+
             try (Stream<Row> rows = sheet.openStream()) {
                 rows.forEach(r -> {
-                    StringBuilder row = new StringBuilder();
+                    if ((r.getRowNum() > startColNumber)
+                            && (!r.getCell(0).toString().equals(""))
+                            && (!r.getCell(1).toString().equals(""))
+                    ) {
+                        StringBuilder row = new StringBuilder();
 
-                    for (Cell cell : r) {
-                        row.append(cell.getRawValue()).append("&&");
+                        for (Cell cell : r) {
+                            row.append(cell.getRawValue()).append("&&");
+                        }
+
+                        stringList.add(row.toString());
                     }
-
-                    stringList.add(row.toString());
                 });
             }
         }catch (IOException e){

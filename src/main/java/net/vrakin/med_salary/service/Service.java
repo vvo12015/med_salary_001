@@ -20,5 +20,7 @@ public interface Service<T> {
 
     void deleteAllById(List<Long> ids);
 
-    public List<T> findAllById(List<Long> ids);
+    List<T> findAllById(List<Long> ids);
+
+//    void saveAll(List<T> eList);
 }

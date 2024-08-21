@@ -1,6 +1,6 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.dto.NSZUDecryptionDTO;
+import net.vrakin.med_salary.dto.NszuDecryptionDTO;
 import net.vrakin.med_salary.entity.NSZU_Decryption;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
@@ -29,35 +29,35 @@ public class NSZU_DecryptionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<NSZUDecryptionDTO>> getAll() {
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper.toDtoList(nszuDecryptionService.findAll());
+    public ResponseEntity<List<NszuDecryptionDTO>> getAll() {
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper.toDtoList(nszuDecryptionService.findAll());
         return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NSZUDecryptionDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
+    public ResponseEntity<NszuDecryptionDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
         NSZU_Decryption nszuDecryption = nszuDecryptionService.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("NSZU_Decryption", "id", id.toString()));
 
-        NSZUDecryptionDTO nszuDecryptionDto = nszuDecryptionMapper.toDto(nszuDecryption);
+        NszuDecryptionDTO nszuDecryptionDto = nszuDecryptionMapper.toDto(nszuDecryption);
 
         return new ResponseEntity<>(nszuDecryptionDto, HttpStatus.OK);
     }
 
     @GetMapping("/date")
-    public ResponseEntity<List<NSZUDecryptionDTO>> getByYearAndMonth(@RequestParam int year,
-                                                                      @RequestParam int month){
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper.toDtoList(
+    public ResponseEntity<List<NszuDecryptionDTO>> getByYearAndMonth(@RequestParam int year,
+                                                                     @RequestParam int month){
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper.toDtoList(
                 nszuDecryptionService.findByYearAndMonth(year, month));
 
         return new ResponseEntity<>(nszuDecryptionDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/recordKind/{recordKind}")
-    public ResponseEntity<List<NSZUDecryptionDTO>> getByRecordKind(@PathVariable String recordKind,
-                                                          @RequestParam int year, @RequestParam int month) {
+    public ResponseEntity<List<NszuDecryptionDTO>> getByRecordKind(@PathVariable String recordKind,
+                                                                   @RequestParam int year, @RequestParam int month) {
 
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
                 .toDtoList(nszuDecryptionService.findByRecordKind(recordKind).stream().filter(nszu_decryption -> {
                     return ((nszu_decryption.getYear()==year)
                             && (nszu_decryption.getYear()==month));
@@ -68,10 +68,10 @@ public class NSZU_DecryptionController {
     }
 
     @GetMapping("/providerPlace/{providerPlace}")
-    public ResponseEntity<List<NSZUDecryptionDTO>> getByProviderPlace(@PathVariable String providerPlace,
+    public ResponseEntity<List<NszuDecryptionDTO>> getByProviderPlace(@PathVariable String providerPlace,
                                                                       @RequestParam int year, @RequestParam int month){
 
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
                 .toDtoList(nszuDecryptionService.findByProviderPlace(providerPlace).stream().filter(nszu_decryption -> {
                             return ((nszu_decryption.getYear()==year)
                                     && (nszu_decryption.getYear()==month));
@@ -82,10 +82,10 @@ public class NSZU_DecryptionController {
     }
 
     @GetMapping("/servicePackage/{servicePackage}")
-    public ResponseEntity<List<NSZUDecryptionDTO>> getByServicePackage(@PathVariable String servicePackage,
-                                                                      @RequestParam int year, @RequestParam int month){
+    public ResponseEntity<List<NszuDecryptionDTO>> getByServicePackage(@PathVariable String servicePackage,
+                                                                       @RequestParam int year, @RequestParam int month){
 
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
                 .toDtoList(nszuDecryptionService.findByServicePackage(servicePackage).stream().filter(nszu_decryption -> {
                             return ((nszu_decryption.getYear()==year)
                                     && (nszu_decryption.getMonth()==month));
@@ -96,10 +96,10 @@ public class NSZU_DecryptionController {
     }
 
     @GetMapping("/executorName/{executorName}")
-    public ResponseEntity<List<NSZUDecryptionDTO>> getByExecutorName(@PathVariable String executorName,
-                                                                       @RequestParam int year, @RequestParam int month){
+    public ResponseEntity<List<NszuDecryptionDTO>> getByExecutorName(@PathVariable String executorName,
+                                                                     @RequestParam int year, @RequestParam int month){
 
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
                 .toDtoList(nszuDecryptionService.findByExecutorName(executorName));
 
         if ((year != 0) && (month != 0)){
@@ -114,11 +114,11 @@ public class NSZU_DecryptionController {
     }
 
     @GetMapping("/executorName-userPosition/{executorName}/{userPosition}")
-    public ResponseEntity<List<NSZUDecryptionDTO>> getByExecutorNameAndUserPosition(
+    public ResponseEntity<List<NszuDecryptionDTO>> getByExecutorNameAndUserPosition(
             @PathVariable String executorName, @PathVariable String userPosition,
                                                                      @RequestParam int year, @RequestParam int month){
 
-        List<NSZUDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
+        List<NszuDecryptionDTO> nszuDecryptionDtoList = nszuDecryptionMapper
                 .toDtoList(nszuDecryptionService.findByExecutorNameAndExecutorUserPosition(executorName, userPosition));
 
         if ((year != 0) && (month != 0)){
@@ -134,7 +134,7 @@ public class NSZU_DecryptionController {
 
 
     @PostMapping
-    public ResponseEntity<NSZUDecryptionDTO> add(@RequestBody NSZUDecryptionDTO nszuDecryptionDTO) {
+    public ResponseEntity<NszuDecryptionDTO> add(@RequestBody NszuDecryptionDTO nszuDecryptionDTO) {
 
         if (nszuDecryptionDTO.getId() != null) {
             throw new ResourceExistException("NSZU_DecryptionDTO", nszuDecryptionDTO.getId().toString());
@@ -142,7 +142,7 @@ public class NSZU_DecryptionController {
 
         NSZU_Decryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
 
-        NSZUDecryptionDTO savedNSZUDecryption = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
+        NszuDecryptionDTO savedNSZUDecryption = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
 
         return new ResponseEntity<>(savedNSZUDecryption, HttpStatus.CREATED);
     }
@@ -158,7 +158,7 @@ public class NSZU_DecryptionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NSZUDecryptionDTO> updateUser(@PathVariable Long id, @RequestBody NSZUDecryptionDTO nszuDecryptionDTO) {
+    public ResponseEntity<NszuDecryptionDTO> updateUser(@PathVariable Long id, @RequestBody NszuDecryptionDTO nszuDecryptionDTO) {
 
         if (!nszuDecryptionDTO.getId().equals(id)){
             throw new IdMismatchException("NSZUDecryptionDTO", id.toString(), nszuDecryptionDTO.getId().toString());
@@ -171,7 +171,7 @@ public class NSZU_DecryptionController {
         NSZU_Decryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
 
 
-        NSZUDecryptionDTO savedNSZU_DecryptionDTO = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
+        NszuDecryptionDTO savedNSZU_DecryptionDTO = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
 
         return new ResponseEntity<>(savedNSZU_DecryptionDTO, HttpStatus.OK);
     }

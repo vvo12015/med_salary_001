@@ -1,35 +1,44 @@
-package com.example.uploadingfiles;
+package net.vrakin.med_salary.controller;
 
-import java.io.IOException;
-import java.util.stream.Collectors;
-
+import lombok.extern.slf4j.Slf4j;
+import net.vrakin.med_salary.dto.NszuDecryptionDTO;
+import net.vrakin.med_salary.entity.NSZU_Decryption;
+import net.vrakin.med_salary.excel.NszuDecryptionExcelReader;
 import net.vrakin.med_salary.exception.StorageFileNotFoundException;
 import net.vrakin.med_salary.service.StorageService;
+import org.hibernate.resource.beans.container.internal.JpaCompliantLifecycleStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
+@RequestMapping
+@Slf4j
 public class FileUploadController {
 
     private final StorageService storageService;
 
+    private final NszuDecryptionExcelReader nszuDecryptionExcelReader;
+
     @Autowired
-    public FileUploadController(StorageService storageService) {
+    public FileUploadController(StorageService storageService,
+                                NszuDecryptionExcelReader nszuDecryptionExcelReader) {
         this.storageService = storageService;
+        this.nszuDecryptionExcelReader = nszuDecryptionExcelReader;
     }
 
     @GetMapping("/files")
@@ -39,8 +48,9 @@ public class FileUploadController {
                         path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                                 "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
+        log.info("Accessing upload page");
 
-        return "nadmin";
+        return "uploadForm";
     }
 
     @GetMapping("/files/{filename:.+}")
@@ -58,13 +68,24 @@ public class FileUploadController {
 
     @PostMapping("/files")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
+                                   @RequestParam(value = "corrective", required = false) boolean corrective,
+                                   @RequestParam String monthYear,
                                    RedirectAttributes redirectAttributes) {
 
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/";
+        YearMonth yearMonth = YearMonth.parse(monthYear);
+        int monthNumber = yearMonth.getMonthValue();
+        int yearNumber = yearMonth.getYear();
+        String savedFileName = String.format("%s_%d_%02d.xslx", corrective?"correct":"decryption", yearNumber, monthNumber);
+
+        File destinationFile = storageService.store(file, savedFileName);
+        List<NszuDecryptionDTO> nszuList = nszuDecryptionExcelReader.readAllDto(destinationFile);
+
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + savedFileName + "!");
+        redirectAttributes.addFlashAttribute("nszuList", nszuList);
+
+        return "redirect:/files";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

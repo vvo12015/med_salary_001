@@ -2,15 +2,13 @@ package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.vrakin.med_salary.dto.NSZUDecryptionDTO;
+import net.vrakin.med_salary.dto.NszuDecryptionDTO;
 import net.vrakin.med_salary.entity.NSZU_Decryption;
 import net.vrakin.med_salary.excel.ExcelHelper;
-import net.vrakin.med_salary.excel.FastExcelHelper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 @Slf4j
 @NoArgsConstructor
-public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryption, NSZUDecryptionDTO> {
+public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryption, NszuDecryptionDTO> {
 
     private ExcelHelper excelHelper;
 
@@ -29,13 +27,13 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryptio
 
     @Mapping(target = "EDRPOU", source = "EDRPOU")
     @Mapping(target = "ADSG", source = "ADSG")
-    public abstract NSZUDecryptionDTO toDto(NSZU_Decryption entity);
+    public abstract NszuDecryptionDTO toDto(NSZU_Decryption entity);
 
     @Mapping(target = "EDRPOU", source = "EDRPOU")
     @Mapping(target = "ADSG", source = "ADSG")
-    public abstract NSZU_Decryption toEntity(NSZUDecryptionDTO dto);
+    public abstract NSZU_Decryption toEntity(NszuDecryptionDTO dto);
 
-    public NSZUDecryptionDTO toDto(String stringDTO) {
+    public NszuDecryptionDTO toDto(String stringDTO) {
 
         List<String> stringList = Arrays.stream(stringDTO.split("&&"))
                 .collect(Collectors.toList());
@@ -47,7 +45,7 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryptio
             return s;
         }).collect(Collectors.toList());
 
-        NSZUDecryptionDTO dto = new NSZUDecryptionDTO();
+        NszuDecryptionDTO dto = new NszuDecryptionDTO();
         int index = 0;
         dto.setYear(Integer.parseInt(stringList.get(index++)));
         dto.setMonth(Integer.parseInt(stringList.get(index++)));

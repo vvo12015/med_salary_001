@@ -1,19 +1,19 @@
 package net.vrakin.med_salary.excel;
 
-import net.vrakin.med_salary.dto.NSZUDecryptionDTO;
+import net.vrakin.med_salary.dto.NszuDecryptionDTO;
 import net.vrakin.med_salary.entity.NSZU_Decryption;
 import net.vrakin.med_salary.mapper.NSZU_DecryptionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-public class NszuDecryptionExcelReader extends AbstractExcelReader<NSZU_Decryption, NSZUDecryptionDTO>
-        implements ExcelReader<NSZU_Decryption, NSZUDecryptionDTO> {
+@Component
+public class NszuDecryptionExcelReader extends AbstractExcelReader<NSZU_Decryption, NszuDecryptionDTO>
+        implements ExcelReader<NSZU_Decryption, NszuDecryptionDTO> {
 
     @Autowired
-    public NszuDecryptionExcelReader(String filename, ExcelHelper excelHelper,
+    public NszuDecryptionExcelReader(ExcelHelper excelHelper,
                                 NSZU_DecryptionMapper mapper) {
-        super(filename, excelHelper, mapper);
+        super(excelHelper, mapper);
     }
 
 }
