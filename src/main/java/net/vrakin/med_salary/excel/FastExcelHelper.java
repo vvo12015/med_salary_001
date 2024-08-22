@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 public class FastExcelHelper implements ExcelHelper{
 
-    private final int startColNumber = 4
+    private final int startColNumber = 4;
 
     public List<String> readExcel(File fileLocation){
         List<String> stringList = new ArrayList<>();
@@ -33,8 +33,8 @@ public class FastExcelHelper implements ExcelHelper{
             try (Stream<Row> rows = sheet.openStream()) {
                 rows.forEach(r -> {
                     if ((r.getRowNum() > startColNumber)
-                            && (!r.getCell(0).toString().equals(""))
-                            && (!r.getCell(1).toString().equals(""))
+                           /* && (!r.getCellText(0).isEmpty())
+                            && (!r.getCellText(0).isEmpty())*/
                     ) {
                         StringBuilder row = new StringBuilder();
 

@@ -3,7 +3,7 @@ package net.vrakin.med_salary.mapper;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.vrakin.med_salary.dto.NszuDecryptionDTO;
-import net.vrakin.med_salary.entity.NSZU_Decryption;
+import net.vrakin.med_salary.entity.NszuDecryption;
 import net.vrakin.med_salary.excel.ExcelHelper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 @Slf4j
 @NoArgsConstructor
-public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryption, NszuDecryptionDTO> {
+public abstract class NSZU_DecryptionMapper implements BaseMapper<NszuDecryption, NszuDecryptionDTO> {
 
     private ExcelHelper excelHelper;
 
@@ -27,11 +27,11 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryptio
 
     @Mapping(target = "EDRPOU", source = "EDRPOU")
     @Mapping(target = "ADSG", source = "ADSG")
-    public abstract NszuDecryptionDTO toDto(NSZU_Decryption entity);
+    public abstract NszuDecryptionDTO toDto(NszuDecryption entity);
 
     @Mapping(target = "EDRPOU", source = "EDRPOU")
     @Mapping(target = "ADSG", source = "ADSG")
-    public abstract NSZU_Decryption toEntity(NszuDecryptionDTO dto);
+    public abstract NszuDecryption toEntity(NszuDecryptionDTO dto);
 
     public NszuDecryptionDTO toDto(String stringDTO) {
 
@@ -43,7 +43,7 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryptio
                 return ExcelHelper.EMPTY_SING;
             }
             return s;
-        }).collect(Collectors.toList());
+        }).toList();
 
         NszuDecryptionDTO dto = new NszuDecryptionDTO();
         int index = 0;
@@ -96,7 +96,7 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NSZU_Decryptio
         dto.setAdditionalComment(stringList.get(index++));
         dto.setDatePreviewNSZU(excelHelper.mapToDate(stringList.get(index++)));
 
-        log.info(dto.toString());
+//        log.info(dto.toString());
         return dto;
     }
 

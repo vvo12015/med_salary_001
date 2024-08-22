@@ -1,20 +1,20 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.NSZU_Decryption;
+import net.vrakin.med_salary.entity.NszuDecryption;
 
 import java.util.List;
 
-public interface NSZU_DecryptionService extends Service<NSZU_Decryption> {
+public interface NSZU_DecryptionService extends Service<NszuDecryption> {
 
-    List<NSZU_Decryption> findByExecutorNameAndExecutorUserPosition(String executorName, String executorUserPosition);
+    List<NszuDecryption> findByExecutorNameAndExecutorUserPosition(String executorName, String executorUserPosition);
 
-    List<NSZU_Decryption> findByYearAndMonth(int year, int month);
+    List<NszuDecryption> findByYearAndMonth(int year, int month);
 
-    List<NSZU_Decryption> findByRecordKind(String recordKind);
+    List<NszuDecryption> findByRecordKind(String recordKind);
 
-    List<NSZU_Decryption> findByProviderPlace(String providerPlace);
+    List<NszuDecryption> findByProviderPlace(String providerPlace);
 
-    List<NSZU_Decryption> findByServicePackage(String servicePackage);
+    List<NszuDecryption> findByServicePackage(String servicePackage);
 
-    List<NSZU_Decryption> findByExecutorName(String executorName);
+    List<NszuDecryption> findByExecutorName(String executorName);
 }

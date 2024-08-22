@@ -1,12 +1,9 @@
 package net.vrakin.med_salary.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import net.vrakin.med_salary.dto.NszuDecryptionDTO;
-import net.vrakin.med_salary.entity.NSZU_Decryption;
+import net.vrakin.med_salary.entity.NszuDecryption;
 import net.vrakin.med_salary.excel.NszuDecryptionExcelReader;
-import net.vrakin.med_salary.exception.StorageFileNotFoundException;
 import net.vrakin.med_salary.service.StorageService;
-import org.hibernate.resource.beans.container.internal.JpaCompliantLifecycleStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +16,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +38,7 @@ public class FileUploadController {
     }
 
     @GetMapping("/files")
-    public String listUploadedFiles(Model model) throws IOException {
+    public String listUploadedFiles(Model model){
 
         model.addAttribute("files", storageService.loadAll().map(
                         path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
@@ -72,25 +68,19 @@ public class FileUploadController {
                                    @RequestParam String monthYear,
                                    RedirectAttributes redirectAttributes) {
 
-
         YearMonth yearMonth = YearMonth.parse(monthYear);
         int monthNumber = yearMonth.getMonthValue();
         int yearNumber = yearMonth.getYear();
         String savedFileName = String.format("%s_%d_%02d.xslx", corrective?"correct":"decryption", yearNumber, monthNumber);
 
         File destinationFile = storageService.store(file, savedFileName);
-        List<NszuDecryptionDTO> nszuList = nszuDecryptionExcelReader.readAllDto(destinationFile);
 
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + savedFileName + "!");
+        List<NszuDecryption> nszuList = nszuDecryptionExcelReader.readAllEntries(destinationFile);
         redirectAttributes.addFlashAttribute("nszuList", nszuList);
 
         return "redirect:/files";
-    }
-
-    @ExceptionHandler(StorageFileNotFoundException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
     }
 
 }

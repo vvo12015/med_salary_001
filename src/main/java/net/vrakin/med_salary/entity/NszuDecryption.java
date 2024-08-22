@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class NSZU_Decryption {
+public class NszuDecryption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

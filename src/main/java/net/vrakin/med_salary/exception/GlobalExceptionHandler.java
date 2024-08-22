@@ -71,4 +71,15 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    public ResponseEntity<ErrorDetails> handleStorageFileNotFound(StorageFileNotFoundException ex, WebRequest request) {
+        ErrorDetails errorDetails = ErrorDetails.builder()
+                .timestamp(LocalDate.now())
+                .message(ex.getMessage())
+                .path(request.getDescription(false))
+                .errorCode("FILE_NOT_FOUND" + "_BAD_REQUEST")
+                .build();
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 }

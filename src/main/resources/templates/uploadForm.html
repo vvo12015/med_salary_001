@@ -93,7 +93,7 @@
                             <td th:text="${nszu.month}"></td>
                             <td th:text="${nszu.recordKind}"></td>
                             <td th:text="${nszu.recordID}"></td>
-                            <td th:text="${#dates.format(nszu.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(nszu.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
                             <td th:text="${nszu.executorUserPosition}"></td>
                             <td th:text="${nszu.executorName}"></td>
                             <td th:text="${nszu.providerPlace}"></td>
@@ -102,9 +102,9 @@
                             <td th:text="${nszu.referringUserPosition}"></td>
                             <td th:text="${nszu.episodeId}"></td>
                             <td th:text="${nszu.episodeKind}"></td>
-                            <td th:text="${#dates.format(nszu.episodeStartDate, 'dd-MM-yyyy')}"></td>
-                            <td th:text="${#dates.format(nszu.periodStartDate, 'dd-MM-yyyy')}"></td>
-                            <td th:text="${#dates.format(nszu.periodEndDate, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${#temporals.format(nszu.episodeStartDate, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(nszu.periodStartDate, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(nszu.periodEndDate, 'dd-MM-yyyy HH:mm')}"></td>
                             <td th:text="${nszu.periodLength}"></td>
                             <td th:text="${nszu.mainDiagnosis}"></td>
                             <td th:text="${nszu.mainDiagnosisValidationStatus}"></td>
@@ -118,7 +118,7 @@
                             <td th:text="${nszu.groundsHospitalization}"></td>
                             <td th:text="${nszu.resultTreatment}"></td>
                             <td th:text="${nszu.patientID}"></td>
-                            <td th:text="${nszu.presenceDeclaration ? 'Yes' : 'No'}"></td>
+                            <td th:text="${nszu.presenceDeclaration ? 'Так' : 'Ні'}"></td>
                             <td th:text="${nszu.patientSex}"></td>
                             <td th:text="${nszu.patientWeight}"></td>
                             <td th:text="${nszu.patientAgeDays}"></td>
@@ -128,15 +128,15 @@
                             <td th:text="${nszu.servicePackageNumber}"></td>
                             <td th:text="${nszu.tariffUAH}"></td>
                             <td th:text="${nszu.paymentFact}"></td>
-                            <td th:text="${nszu.statisticStatus ? 'Yes' : 'No'}"></td>
-                            <td th:text="${nszu.reportStatus ? 'Yes' : 'No'}"></td>
+                            <td th:text="${nszu.statisticStatus ? 'Так' : 'Ні'}"></td>
+                            <td th:text="${nszu.reportStatus ? 'Так' : 'Ні'}"></td>
                             <td th:text="${nszu.errorComment}"></td>
                             <td th:text="${nszu.errorDetails}"></td>
                             <td th:text="${nszu.detailsRequireVerification}"></td>
                             <td th:text="${nszu.groupErrorDetails}"></td>
                             <td th:text="${nszu.detailsPreviewNSZU}"></td>
                             <td th:text="${nszu.additionalComment}"></td>
-                            <td th:text="${#dates.format(nszu.datePreviewNSZU, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(nszu.datePreviewNSZU, 'dd-MM-yyyy HH:mm')}"></td>
                         </tr>
                         </tbody>
                     </table>

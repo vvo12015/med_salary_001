@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.controller;
 
 import net.vrakin.med_salary.dto.NszuDecryptionDTO;
-import net.vrakin.med_salary.entity.NSZU_Decryption;
+import net.vrakin.med_salary.entity.NszuDecryption;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
@@ -36,7 +36,7 @@ public class NSZU_DecryptionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<NszuDecryptionDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
-        NSZU_Decryption nszuDecryption = nszuDecryptionService.findById(id)
+        NszuDecryption nszuDecryption = nszuDecryptionService.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("NSZU_Decryption", "id", id.toString()));
 
         NszuDecryptionDTO nszuDecryptionDto = nszuDecryptionMapper.toDto(nszuDecryption);
@@ -140,7 +140,7 @@ public class NSZU_DecryptionController {
             throw new ResourceExistException("NSZU_DecryptionDTO", nszuDecryptionDTO.getId().toString());
         }
 
-        NSZU_Decryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
+        NszuDecryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
 
         NszuDecryptionDTO savedNSZUDecryption = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
 
@@ -168,7 +168,7 @@ public class NSZU_DecryptionController {
                 .orElseThrow(()->new ResourceNotFoundException("NSZUDecryption", "id", id.toString()));
 
 
-        NSZU_Decryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
+        NszuDecryption nszuDecryption = nszuDecryptionMapper.toEntity(nszuDecryptionDTO);
 
 
         NszuDecryptionDTO savedNSZU_DecryptionDTO = nszuDecryptionMapper.toDto(nszuDecryptionService.save(nszuDecryption));
