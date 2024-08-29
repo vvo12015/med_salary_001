@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractService<E> {
+public abstract class AbstractService<E> implements Service<E>{
     protected final JpaRepository<E, Long> repository;
 
     protected AbstractService(JpaRepository<E, Long> repository) {
@@ -35,5 +35,10 @@ public abstract class AbstractService<E> {
 
     public List<E> findAllById(List<Long> ids) throws ResourceNotFoundException {
         return repository.findAllById(ids);
+    }
+
+    @Override
+    public void saveAll(List<E> eList) {
+        repository.saveAll(eList);
     }
 }

@@ -22,5 +22,5 @@ public interface Service<T> {
 
     List<T> findAllById(List<Long> ids);
 
-//    void saveAll(List<T> eList);
+    void saveAll(List<T> eList);
 }
