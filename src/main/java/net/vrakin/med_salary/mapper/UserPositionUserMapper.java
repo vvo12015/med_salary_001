@@ -4,8 +4,6 @@ import lombok.NoArgsConstructor;
 import net.vrakin.med_salary.dto.*;
 import net.vrakin.med_salary.entity.*;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
-import net.vrakin.med_salary.service.DepartmentService;
-import net.vrakin.med_salary.service.RoleService;
 import net.vrakin.med_salary.service.UserPositionService;
 import net.vrakin.med_salary.service.UserService;
 import org.mapstruct.AfterMapping;
@@ -14,12 +12,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Mapper(componentModel = "spring")
 @NoArgsConstructor
-public abstract class UserPositionUserMapper implements BaseMapper<UserPositionUser, UserPositionUserDTO> {
+public abstract class UserPositionUserMapper implements BaseMapper<StaffList, UserPositionUserDTO> {
 
     private UserService userService;
     private UserPositionService userPositionService;
@@ -49,11 +44,11 @@ public abstract class UserPositionUserMapper implements BaseMapper<UserPositionU
 
     @Mapping(target = "userDTO", source = "user")
     @Mapping(target = "userPositionDTO", source = "userPosition")
-    public abstract UserPositionUserDTO toDto(UserPositionUser entity);
+    public abstract UserPositionUserDTO toDto(StaffList entity);
 
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "userPosition", ignore = true)
-    public abstract UserPositionUser toEntity(UserPositionUserSavedDTO dto);
+    public abstract StaffList toEntity(UserPositionUserSavedDTO dto);
 
     protected UserDTO map(User user) {
         return userMapper.toDto(user);
@@ -65,7 +60,7 @@ public abstract class UserPositionUserMapper implements BaseMapper<UserPositionU
 
     @AfterMapping
     protected void linkUserUserAndPositionAndId(UserPositionUserSavedDTO userPositionUserSavedDTO,
-                                          @MappingTarget UserPositionUser userPositionUser) {
+                                          @MappingTarget StaffList staffList) {
 
         User user = userService
                 .findById(userPositionUserSavedDTO.getUserId())
@@ -78,10 +73,10 @@ public abstract class UserPositionUserMapper implements BaseMapper<UserPositionU
                 );
 
         if (userPositionUserSavedDTO.getId() != null){
-            userPositionUser.setId(userPositionUserSavedDTO.getId());
+            staffList.setId(userPositionUserSavedDTO.getId());
         }
 
-        userPositionUser.setUser(user);
-        userPositionUser.setUserPosition(userPosition);
+        staffList.setUser(user);
+        staffList.setUserPosition(userPosition);
     }
 }

@@ -3,13 +3,12 @@ package net.vrakin.med_salary.service;
 import net.vrakin.med_salary.entity.*;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface UserPositionUserService extends Service<UserPositionUser> {
+public interface UserPositionUserService extends Service<StaffList> {
 
-    List<UserPositionUser> findByUser(User user);
+    List<StaffList> findByUser(User user);
 
-    List<UserPositionUser> findByUserPosition(UserPosition userPosition);
+    List<StaffList> findByUserPosition(UserPosition userPosition);
 
-    List<UserPositionUser> findByEmploymentBetween(float lower, float higher);
+    List<StaffList> findByEmploymentBetween(float lower, float higher);
 }

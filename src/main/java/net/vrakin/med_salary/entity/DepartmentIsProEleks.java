@@ -3,31 +3,26 @@ package net.vrakin.med_salary.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "user_position")
-public class UserPosition {
+@Table(name = "department_ispro_eleks")
+public class DepartmentIsProEleks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true, nullable = false)
-    private String name;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPosition")
-    List<StaffList> staffListList;
+    @Column(unique = true)
+    private String nameIsPro;
 
     @Override
     public String toString() {
-        return "UserPosition{" +
+        return "DepartmentIsPro{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + nameIsPro + '\'' +
                 '}';
     }
 }

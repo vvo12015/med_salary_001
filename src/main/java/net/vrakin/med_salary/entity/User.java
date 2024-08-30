@@ -44,7 +44,7 @@ public class User {
     private List<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    List<UserPositionUser> userPositionUserList;
+    List<StaffList> staffListList;
 
     @Override
     public String toString() {

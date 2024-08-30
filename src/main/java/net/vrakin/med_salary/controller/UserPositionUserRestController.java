@@ -1,14 +1,11 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.dto.UserDTO;
 import net.vrakin.med_salary.dto.UserPositionUserDTO;
 import net.vrakin.med_salary.dto.UserPositionUserSavedDTO;
-import net.vrakin.med_salary.dto.UserSavedDTO;
 import net.vrakin.med_salary.entity.*;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
-import net.vrakin.med_salary.mapper.UserMapper;
 import net.vrakin.med_salary.mapper.UserPositionUserMapper;
 import net.vrakin.med_salary.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +42,10 @@ public class UserPositionUserRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserPositionUserDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
-        UserPositionUser userPositionUser = userPositionUserService.findById(id)
+        StaffList staffList = userPositionUserService.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("UserPositionUser", "id", id.toString()));
 
-        UserPositionUserDTO userPositionUserDTO = userPositionUserMapper.toDto(userPositionUser);
+        UserPositionUserDTO userPositionUserDTO = userPositionUserMapper.toDto(staffList);
 
         return new ResponseEntity<>(userPositionUserDTO, HttpStatus.OK);
     }
@@ -84,9 +81,9 @@ public class UserPositionUserRestController {
             throw new ResourceExistException("UserPositionUserSavedDTO", userPositionUserSavedDTO.getId().toString());
         }
 
-        UserPositionUser userPositionUser = userPositionUserMapper.toEntity(userPositionUserSavedDTO);
+        StaffList staffList = userPositionUserMapper.toEntity(userPositionUserSavedDTO);
 
-        UserPositionUserDTO savedUserPositionUser = userPositionUserMapper.toDto(userPositionUserService.save(userPositionUser));
+        UserPositionUserDTO savedUserPositionUser = userPositionUserMapper.toDto(userPositionUserService.save(staffList));
 
         return new ResponseEntity<>(savedUserPositionUser, HttpStatus.CREATED);
     }
@@ -113,11 +110,11 @@ public class UserPositionUserRestController {
                 .orElseThrow(()->new ResourceNotFoundException("UserPositionUser", "id", id.toString()));
 
 
-        UserPositionUser userPositionUser = userPositionUserMapper.toEntity(userPositionUserSavedDTO);
+        StaffList staffList = userPositionUserMapper.toEntity(userPositionUserSavedDTO);
 
 
         UserPositionUserDTO savedUserPositionUserDTO = userPositionUserMapper
-                .toDto(userPositionUserService.save(userPositionUser));
+                .toDto(userPositionUserService.save(staffList));
 
         return new ResponseEntity<>(savedUserPositionUserDTO, HttpStatus.OK);
     }

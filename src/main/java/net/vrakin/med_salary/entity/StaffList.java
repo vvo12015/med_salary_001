@@ -3,8 +3,6 @@ package net.vrakin.med_salary.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 
 @Getter
 @Setter
@@ -13,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Entity
 @Table(name="user_position_user")
-public class UserPositionUser {
+public class StaffList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +29,7 @@ public class UserPositionUser {
 
     @Override
     public String toString() {
-        return "UserPositionUser{" +
+        return "StaffList{" +
                 "id=" + id +
                 ", username=" + user.getName() +
                 ", userPositionName=" + userPosition.getName() +
