@@ -2,7 +2,7 @@ package net.vrakin.med_salary.mapper;
 
 import net.vrakin.med_salary.dto.RoleDTO;
 import net.vrakin.med_salary.dto.RoleSavedDTO;
-import net.vrakin.med_salary.entity.Role;
+import net.vrakin.med_salary.domain.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

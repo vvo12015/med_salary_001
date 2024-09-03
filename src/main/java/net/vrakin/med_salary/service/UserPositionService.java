@@ -1,7 +1,6 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.Role;
-import net.vrakin.med_salary.entity.UserPosition;
+import net.vrakin.med_salary.domain.UserPosition;
 
 import java.util.Optional;
 

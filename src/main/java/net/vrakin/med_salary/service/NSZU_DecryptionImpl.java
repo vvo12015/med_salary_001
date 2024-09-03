@@ -1,6 +1,6 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.NszuDecryption;
+import net.vrakin.med_salary.domain.NszuDecryption;
 import net.vrakin.med_salary.repository.NSZU_DecryptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

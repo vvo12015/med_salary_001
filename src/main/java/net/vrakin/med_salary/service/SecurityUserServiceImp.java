@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.SecurityRole;
-import net.vrakin.med_salary.entity.SecurityUser;
+import net.vrakin.med_salary.domain.SecurityRole;
+import net.vrakin.med_salary.domain.SecurityUser;
 import net.vrakin.med_salary.repository.SecurityUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

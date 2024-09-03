@@ -2,9 +2,9 @@ package net.vrakin.med_salary.controller;
 
 import net.vrakin.med_salary.dto.UserSavedDTO;
 import net.vrakin.med_salary.dto.UserDTO;
-import net.vrakin.med_salary.entity.Department;
-import net.vrakin.med_salary.entity.Role;
-import net.vrakin.med_salary.entity.User;
+import net.vrakin.med_salary.domain.Department;
+import net.vrakin.med_salary.domain.Role;
+import net.vrakin.med_salary.domain.mapping.users.User;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;

@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.controller;
 
 import net.vrakin.med_salary.dto.NszuDecryptionDTO;
-import net.vrakin.med_salary.entity.NszuDecryption;
+import net.vrakin.med_salary.domain.NszuDecryption;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;

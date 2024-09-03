@@ -1,8 +1,8 @@
 package net.vrakin.med_salary.controller;
 
 import net.vrakin.med_salary.dto.SecurityUserDTO;
-import net.vrakin.med_salary.entity.SecurityRole;
-import net.vrakin.med_salary.entity.SecurityUser;
+import net.vrakin.med_salary.domain.SecurityRole;
+import net.vrakin.med_salary.domain.SecurityUser;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;

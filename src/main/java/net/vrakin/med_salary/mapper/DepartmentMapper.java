@@ -3,8 +3,8 @@ package net.vrakin.med_salary.mapper;
 import lombok.NoArgsConstructor;
 import net.vrakin.med_salary.dto.DepartmentDTO;
 import net.vrakin.med_salary.dto.DepartmentSavedDTO;
-import net.vrakin.med_salary.entity.Department;
-import net.vrakin.med_salary.entity.User;
+import net.vrakin.med_salary.domain.Department;
+import net.vrakin.med_salary.domain.mapping.users.User;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
 import net.vrakin.med_salary.service.UserService;
 import org.mapstruct.AfterMapping;
@@ -12,8 +12,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 @NoArgsConstructor

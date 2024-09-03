@@ -1,7 +1,6 @@
 package net.vrakin.med_salary.dto;
 
 import lombok.*;
-import net.vrakin.med_salary.entity.Role;
 
 import java.util.List;
 

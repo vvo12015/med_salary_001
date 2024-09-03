@@ -1,6 +1,6 @@
 package net.vrakin.med_salary.controller;
 
-import net.vrakin.med_salary.entity.SecurityUser;
+import net.vrakin.med_salary.domain.SecurityUser;
 import net.vrakin.med_salary.mapper.SecurityUserMapper;
 import net.vrakin.med_salary.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,4 +11,5 @@ import lombok.*;
 public class UserPositionDTO {
     private Long id;
     private String name;
+    private String userPositionCodeIdPro;
 }

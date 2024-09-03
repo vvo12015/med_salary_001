@@ -1,39 +1,41 @@
 package net.vrakin.med_salary.mapper;
 
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import net.vrakin.med_salary.dto.NszuDecryptionDTO;
-import net.vrakin.med_salary.domain.NszuDecryption;
+import net.vrakin.med_salary.dto.*;
+import net.vrakin.med_salary.domain.StaffList;
 import net.vrakin.med_salary.excel.ExcelHelper;
-import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
-@Slf4j
-@NoArgsConstructor
-public abstract class NSZU_DecryptionMapper implements BaseMapper<NszuDecryption, NszuDecryptionDTO> {
-
+public abstract class StaffListMapper implements BaseMapper<StaffList, StaffListDTO> {
+    public static final int INDEX_STAFF_LIST_ID = 0;
+    public static final int INDEX_USER_POSITION_CODE = 1;
+    public static final int INDEX_USER_POSITION_NAME = 2;
+    public static final int INDEX_DEPARTMENT_NAME = 3;
+    public static final int INDEX_EMPLOYMENT = 4;
+    public static final int INDEX_IPN = 5;
     private ExcelHelper excelHelper;
 
-    @Autowired
-    public void setExcelHelper(ExcelHelper excelHelper) {
-        this.excelHelper = excelHelper;
-    }
+    @Mapping(target = "IPN", source = "IPN")
+    public abstract StaffListDTO toDto(StaffList entity);
 
-    @Mapping(target = "EDRPOU", source = "EDRPOU")
-    @Mapping(target = "ADSG", source = "ADSG")
-    public abstract NszuDecryptionDTO toDto(NszuDecryption entity);
-
-    @Mapping(target = "EDRPOU", source = "EDRPOU")
-    @Mapping(target = "ADSG", source = "ADSG")
-    public abstract NszuDecryption toEntity(NszuDecryptionDTO dto);
-
-    public NszuDecryptionDTO toDto(String stringDTO) {
+    /*
+       private Id id;
+       private StaffListId staffListId;
+       private User user;
+       private UserPosition userPosition;
+       private Employment employment;
+       private MaxPoint maxPoint;
+       private PointValue pointValue;
+       private Department department;
+       private IPN IPN;
+       private CreationDate creationDate;
+       private StartDate startDate;
+       private EndDate endDate;
+        */
+    public StaffListDTO toDto(String stringDTO) {
 
         List<String> stringList = Arrays.stream(stringDTO.split("&&"))
                 .collect(Collectors.toList());
@@ -45,10 +47,21 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NszuDecryption
             return s;
         }).toList();
 
-        NszuDecryptionDTO dto = new NszuDecryptionDTO();
+        StaffListDTO dto = new StaffListDTO();
         int index = 0;
-        dto.setYear(Integer.parseInt(stringList.get(index++)));
-        dto.setMonth(Integer.parseInt(stringList.get(index++)));
+        dto.setStaffListId(stringList.get(INDEX_STAFF_LIST_ID));
+        UserPositionDTO userPositionDTO = new UserPositionDTO();
+        userPositionDTO.setUserPositionCodeIdPro(stringList.get(INDEX_USER_POSITION_CODE));
+        userPositionDTO.setName(stringList.get(INDEX_USER_POSITION_NAME));
+        dto.setUserPosition(userPositionDTO);
+        DepartmentDTO departmentDTO = new DepartmentDTO();
+        departmentDTO.setName(stringList.get(INDEX_DEPARTMENT_NAME));
+        dto.setDepartment(departmentDTO);
+        dto.setEmployment(Float.parseFloat(stringList.get(INDEX_EMPLOYMENT)));
+        dto.setIPN(stringList.get(INDEX_IPN));
+        dto.
+        dto.setUser();
+        dto.setStaffListId(stringList.get(index++));
         dto.setRecordKind(stringList.get(index++));
         dto.setRecordID(stringList.get(index++));
         dto.setCreationDate(excelHelper.mapToDate(stringList.get(index++)));
@@ -99,5 +112,4 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NszuDecryption
 //        log.info(dto.toString());
         return dto;
     }
-
 }

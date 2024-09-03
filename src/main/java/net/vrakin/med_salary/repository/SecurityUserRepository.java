@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.repository;
 
-import net.vrakin.med_salary.entity.SecurityRole;
-import net.vrakin.med_salary.entity.SecurityUser;
+import net.vrakin.med_salary.domain.SecurityRole;
+import net.vrakin.med_salary.domain.SecurityUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -33,8 +33,6 @@ public class FastExcelHelper implements ExcelHelper{
             try (Stream<Row> rows = sheet.openStream()) {
                 rows.forEach(r -> {
                     if ((r.getRowNum() > startColNumber)
-                           /* && (!r.getCellText(0).isEmpty())
-                            && (!r.getCellText(0).isEmpty())*/
                     ) {
                         StringBuilder row = new StringBuilder();
 

@@ -1,4 +1,4 @@
-package net.vrakin.med_salary.entity;
+package net.vrakin.med_salary.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

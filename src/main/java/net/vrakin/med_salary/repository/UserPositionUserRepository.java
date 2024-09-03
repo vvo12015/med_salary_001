@@ -1,6 +1,7 @@
 package net.vrakin.med_salary.repository;
 
-import net.vrakin.med_salary.entity.*;
+import net.vrakin.med_salary.domain.*;
+import net.vrakin.med_salary.domain.mapping.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

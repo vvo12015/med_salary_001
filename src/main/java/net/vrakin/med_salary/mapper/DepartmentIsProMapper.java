@@ -2,7 +2,7 @@ package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
 import net.vrakin.med_salary.dto.DepartmentIsProDTO;
-import net.vrakin.med_salary.entity.DepartmentIsProEleks;
+import net.vrakin.med_salary.domain.DepartmentIsProEleks;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

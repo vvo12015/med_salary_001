@@ -1,8 +1,8 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.StaffList;
-import net.vrakin.med_salary.entity.User;
-import net.vrakin.med_salary.entity.UserPosition;
+import net.vrakin.med_salary.domain.StaffList;
+import net.vrakin.med_salary.domain.mapping.users.User;
+import net.vrakin.med_salary.domain.UserPosition;
 import net.vrakin.med_salary.repository.UserPositionUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

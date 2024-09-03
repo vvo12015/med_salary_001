@@ -1,9 +1,7 @@
-package net.vrakin.med_salary.entity;
+package net.vrakin.med_salary.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -11,8 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "user_position")
+public class UserPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,14 +18,21 @@ public class Role {
     @Column(unique=true, nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private List<User> users;
+    @Column
+    private String userPositionCodeIdPro;
+
+    @Column
+    private Integer maxPoint;
+
+    @Column
+    private Float pointValue;
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "UserPosition{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", userIsProId='" + userPositionCodeIdPro + '\'' +
                 '}';
     }
 }

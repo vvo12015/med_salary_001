@@ -1,6 +1,6 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.NszuDecryption;
+import net.vrakin.med_salary.domain.NszuDecryption;
 
 import java.util.List;
 

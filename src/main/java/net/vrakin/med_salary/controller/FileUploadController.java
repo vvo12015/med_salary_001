@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import net.vrakin.med_salary.entity.NszuDecryption;
+import net.vrakin.med_salary.domain.NszuDecryption;
 import net.vrakin.med_salary.excel.NszuDecryptionExcelReader;
 import net.vrakin.med_salary.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;

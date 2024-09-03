@@ -1,12 +1,12 @@
 package net.vrakin.med_salary.controller;
 
+import net.vrakin.med_salary.domain.mapping.users.User;
 import net.vrakin.med_salary.dto.UserPositionUserDTO;
 import net.vrakin.med_salary.dto.UserPositionUserSavedDTO;
-import net.vrakin.med_salary.entity.*;
+import net.vrakin.med_salary.domain.*;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
-import net.vrakin.med_salary.mapper.UserPositionUserMapper;
 import net.vrakin.med_salary.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

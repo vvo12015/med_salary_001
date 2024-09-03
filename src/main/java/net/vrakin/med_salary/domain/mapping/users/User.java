@@ -1,7 +1,10 @@
-package net.vrakin.med_salary.entity;
+package net.vrakin.med_salary.domain.mapping.users;
 
 import jakarta.persistence.*;
 import lombok.*;
+import net.vrakin.med_salary.domain.Department;
+import net.vrakin.med_salary.domain.Role;
+import net.vrakin.med_salary.domain.StaffList;
 
 import java.util.List;
 

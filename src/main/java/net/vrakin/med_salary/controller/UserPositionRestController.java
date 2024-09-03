@@ -2,7 +2,7 @@ package net.vrakin.med_salary.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.vrakin.med_salary.dto.UserPositionDTO;
-import net.vrakin.med_salary.entity.UserPosition;
+import net.vrakin.med_salary.domain.UserPosition;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;

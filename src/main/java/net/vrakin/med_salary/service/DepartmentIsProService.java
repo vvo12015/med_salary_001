@@ -1,7 +1,7 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.entity.Department;
-import net.vrakin.med_salary.entity.User;
+import net.vrakin.med_salary.domain.Department;
+import net.vrakin.med_salary.domain.mapping.users.User;
 
 import java.util.Optional;
 
