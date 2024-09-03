@@ -1,6 +1,7 @@
 package net.vrakin.med_salary.service;
 
 import net.vrakin.med_salary.domain.*;
+import net.vrakin.med_salary.domain.mapping.users.StaffList;
 import net.vrakin.med_salary.domain.mapping.users.User;
 
 import java.util.List;

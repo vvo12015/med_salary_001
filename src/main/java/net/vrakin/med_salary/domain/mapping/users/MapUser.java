@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.vrakin.med_salary.domain.StaffList;
 
 import java.util.List;
 
@@ -14,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("Users")
-public class Users extends AbstractUser {
+@DiscriminatorValue("MapUser")
+public class MapUser extends AbstractUser {
 
     @ManyToMany
     @JoinTable(

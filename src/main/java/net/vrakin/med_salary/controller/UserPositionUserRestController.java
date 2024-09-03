@@ -1,5 +1,6 @@
 package net.vrakin.med_salary.controller;
 
+import net.vrakin.med_salary.domain.mapping.users.StaffList;
 import net.vrakin.med_salary.domain.mapping.users.User;
 import net.vrakin.med_salary.dto.UserPositionUserDTO;
 import net.vrakin.med_salary.dto.UserPositionUserSavedDTO;

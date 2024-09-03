@@ -1,6 +1,6 @@
 package net.vrakin.med_salary.service;
 
-import net.vrakin.med_salary.domain.StaffList;
+import net.vrakin.med_salary.domain.mapping.users.StaffList;
 import net.vrakin.med_salary.domain.mapping.users.User;
 import net.vrakin.med_salary.domain.UserPosition;
 import net.vrakin.med_salary.repository.UserPositionUserRepository;

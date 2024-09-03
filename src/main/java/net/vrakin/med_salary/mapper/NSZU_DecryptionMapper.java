@@ -96,7 +96,6 @@ public abstract class NSZU_DecryptionMapper implements BaseMapper<NszuDecryption
         dto.setAdditionalComment(stringList.get(index++));
         dto.setDatePreviewNSZU(excelHelper.mapToDate(stringList.get(index++)));
 
-//        log.info(dto.toString());
         return dto;
     }
 

@@ -1,17 +1,17 @@
 package net.vrakin.med_salary.mapper;
 
 import lombok.NoArgsConstructor;
-import net.vrakin.med_salary.dto.DepartmentIsProDTO;
+import net.vrakin.med_salary.dto.MapDepartmentDTO;
 import net.vrakin.med_salary.domain.DepartmentIsProEleks;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 @NoArgsConstructor
-public abstract class DepartmentIsProMapper implements BaseMapper<DepartmentIsProEleks, DepartmentIsProDTO> {
+public abstract class DepartmentIsProMapper implements BaseMapper<DepartmentIsProEleks, MapDepartmentDTO> {
 
     @Override
-    public abstract DepartmentIsProDTO toDto(DepartmentIsProEleks entity);
+    public abstract MapDepartmentDTO toDto(DepartmentIsProEleks entity);
 
     @Override
-    public abstract DepartmentIsProEleks toEntity(DepartmentIsProDTO dto);
+    public abstract DepartmentIsProEleks toEntity(MapDepartmentDTO dto);
 }

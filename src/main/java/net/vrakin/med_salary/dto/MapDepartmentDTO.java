@@ -8,7 +8,9 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class DepartmentIsProDTO {
+public class MapDepartmentDTO {
     private Long id;
     private String name;
+    private String departmentIsProId;
+    private String userId;
 }

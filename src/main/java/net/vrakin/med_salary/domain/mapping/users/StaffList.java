@@ -1,9 +1,11 @@
-package net.vrakin.med_salary.domain;
+package net.vrakin.med_salary.domain.mapping.users;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.persistence.*;
 import lombok.*;
+import net.vrakin.med_salary.domain.Department;
+import net.vrakin.med_salary.domain.UserPosition;
 import net.vrakin.med_salary.domain.mapping.department.MapDepartment;
 import net.vrakin.med_salary.domain.mapping.department.MapDepartmentUser;
 import net.vrakin.med_salary.domain.mapping.users.AbstractUser;

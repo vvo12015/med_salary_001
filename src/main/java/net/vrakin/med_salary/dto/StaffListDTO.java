@@ -17,13 +17,8 @@ public class StaffListDTO {
     private String staffListId;
     private UserPositionDTO userPosition;
     private Float employment;
-    private Float maxPoint;
-    private Float pointValue;
     private DepartmentDTO department;
     @Getter(onMethod_ = {@JsonGetter("IPN")})
     @Setter(onMethod_ = {@JsonSetter("IPN")})
     private String IPN;
-    private LocalDate creationDate;
-    private LocalDate startDate;
-    private LocalDate endDate;
 }
