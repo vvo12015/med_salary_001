@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.vrakin.med_salary.dto.*;
 import net.vrakin.med_salary.domain.mapping.users.StaffList;
 import net.vrakin.med_salary.excel.ExcelHelper;
+import net.vrakin.med_salary.service.mapper.StaffListMapperService;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.Arrays;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Mapper(uses = StaffListMapperService.class)
 public abstract class StaffListMapper implements BaseMapper<StaffList, StaffListDTO> {
     public static final int INDEX_STAFF_LIST_ID = 0;
     public static final int INDEX_USER_POSITION_CODE = 1;
@@ -23,6 +26,8 @@ public abstract class StaffListMapper implements BaseMapper<StaffList, StaffList
 
     @Mapping(target = "IPN", source = "IPN")
     public abstract StaffListDTO toDto(StaffList entity);
+
+    public abstract StaffList toEntity(StaffListDTO staffListDTO);
 
     public StaffListDTO toDto(String stringDTO) {
 

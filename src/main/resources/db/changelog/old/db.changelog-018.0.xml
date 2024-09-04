@@ -1,0 +1,44 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet  id="30"  author="vvo12015">
+        <createTable  tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="IPN" type="VARCHAR(255)"/>
+            <column name="staffList_id" type="VARCHAR(255)"/>
+            <column  name="user_position_id" type="bigint">
+                <constraints    foreignKeyName="fk_user_user_position"
+                                referencedTableName="user_position"
+                                referencedColumnNames="id"
+                                deleteCascade="true"
+                                nullable="false"/>
+            </column>
+            <column name="employment" type="float">
+            </column>
+            <column name="department_id" type="bigint">
+            </column>
+            <column name="login" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="department">
+            <column name=""></column>
+        </createTable>
+        <createTable  tableName="map_department">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column  name="department_id" type="bigint">
+                <constraints    foreignKeyName="fk_map_department_eleks"
+                                referencedTableName="department"
+                                referencedColumnNames="id"
+                                deleteCascade="true"
+                                nullable="false"/>
+            </column>
+            <column name="staffList_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

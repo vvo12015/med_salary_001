@@ -41,7 +41,7 @@ public abstract class DepartmentMapper implements BaseMapper<Department, Departm
         if (managerId != null) {
             User manager = userService.findById(managerId)
                     .orElseThrow(() -> new ResourceNotFoundException("Manager", "id", managerId.toString()));
-            department.setManager(manager);
+            department.setManager(null);
         }
     }
 }

@@ -3,6 +3,7 @@ package net.vrakin.med_salary.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import net.vrakin.med_salary.domain.mapping.users.User;
+import net.vrakin.med_salary.domain.mapping.users.UserEleks;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Department {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager_ref")
-    private User manager;
+    private UserEleks manager;
 
     @Override
     public String toString() {

@@ -8,6 +8,7 @@ import net.vrakin.med_salary.domain.*;
 import net.vrakin.med_salary.exception.IdMismatchException;
 import net.vrakin.med_salary.exception.ResourceExistException;
 import net.vrakin.med_salary.exception.ResourceNotFoundException;
+import net.vrakin.med_salary.mapper.UserPositionUserMapper;
 import net.vrakin.med_salary.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user-position-user")
 public class UserPositionUserRestController {
-
+/*
     private final UserService userService;
     private final UserPositionService userPositionService;
     private final UserPositionUserService userPositionUserService;
@@ -118,5 +119,5 @@ public class UserPositionUserRestController {
                 .toDto(userPositionUserService.save(staffList));
 
         return new ResponseEntity<>(savedUserPositionUserDTO, HttpStatus.OK);
-    }
+    }*/
 }

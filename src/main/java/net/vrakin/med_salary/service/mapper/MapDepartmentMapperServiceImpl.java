@@ -5,24 +5,26 @@ import net.vrakin.med_salary.dto.MapDepartmentDTO;
 import net.vrakin.med_salary.exception.ParametersMismatchException;
 import net.vrakin.med_salary.repository.MapDepartmentRepository;
 import net.vrakin.med_salary.service.AbstractService;
-import net.vrakin.med_salary.service.Service;
+import org.mapstruct.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapDepartmentServiceImpl extends AbstractService<MapDepartment> implements MapDepartmentService, Service<MapDepartment>  {
+@Service
+public class MapDepartmentMapperServiceImpl implements MapDepartmentMapperService {
 
     private MapDepartmentRepository mapDepartmentRepository;
 
     @Autowired
-    public MapDepartmentServiceImpl(MapDepartmentRepository mapDepartmentRepository) {
-        super(mapDepartmentRepository);
+    public MapDepartmentMapperServiceImpl(MapDepartmentRepository mapDepartmentRepository) {
         this.mapDepartmentRepository = mapDepartmentRepository;
     }
 
-    public MapDepartment mappedToEntity(MapDepartmentDTO mapDepartmentDTO) {
+    @ObjectFactory
+    public MapDepartment toEntity(MapDepartmentDTO mapDepartmentDTO) {
 
         Map<String, String> params = new HashMap<>();
 

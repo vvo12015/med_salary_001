@@ -13,10 +13,9 @@ import lombok.*;
 public class UserEleks extends AbstractUser{
     @Column(unique=true, nullable = false)
     private String login;
-
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEleks{" +
                 ", login='" + login + '\'' +
                 '}';
     }

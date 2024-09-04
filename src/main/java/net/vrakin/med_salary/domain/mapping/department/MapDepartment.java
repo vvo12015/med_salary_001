@@ -11,6 +11,7 @@ import org.hibernate.annotations.DiscriminatorFormula;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "map_department")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorFormula("case when user_id is null then 'MapDepartments' else 'MapUsers' end")
 @DiscriminatorValue("MapDepartments")
@@ -23,6 +24,7 @@ public class MapDepartment {
     @Column
     private String departmentIsProId;
 
-    @Column
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "department_id")
     private Department department;
 }
