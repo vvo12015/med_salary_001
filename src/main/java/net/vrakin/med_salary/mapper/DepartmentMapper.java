@@ -17,12 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @NoArgsConstructor
 public abstract class DepartmentMapper implements BaseMapper<Department, DepartmentDTO> {
 
-    private UserService userService;
-
-    @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
-    }
     @Override
     @Mapping(target = "managerName", source = "manager.name")
     public abstract DepartmentDTO toDto(Department entity);
@@ -33,15 +27,4 @@ public abstract class DepartmentMapper implements BaseMapper<Department, Departm
 
     @Mapping(target = "manager", ignore = true)
     public abstract Department toEntity(DepartmentSavedDTO dto);
-
-    @AfterMapping
-    protected void likeManager(DepartmentSavedDTO departmentDTO, @MappingTarget Department department){
-        Long managerId = departmentDTO.getManagerId();
-
-        if (managerId != null) {
-            User manager = userService.findById(managerId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Manager", "id", managerId.toString()));
-            department.setManager(null);
-        }
-    }
 }

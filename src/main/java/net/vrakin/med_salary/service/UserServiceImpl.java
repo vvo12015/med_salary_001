@@ -2,20 +2,23 @@ package net.vrakin.med_salary.service;
 
 import net.vrakin.med_salary.domain.Department;
 import net.vrakin.med_salary.domain.Role;
+import net.vrakin.med_salary.domain.mapping.users.AbstractUser;
 import net.vrakin.med_salary.domain.mapping.users.User;
 import net.vrakin.med_salary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserServiceImpl extends AbstractService<User> implements UserService {
+
+public class UserServiceImpl extends AbstractService<AbstractUser> implements UserService {
 
     @Autowired
-    public UserServiceImpl(UserRepository repository){
-        super(repository);
+    public UserServiceImpl(UserRepository userRepository){
+        super(userRepository);
+        this.userRepository = userRepository;
     }
 
     private UserRepository userRepository;
@@ -26,32 +29,12 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
-    public Optional<User> findByLogin(String login) {
-        return userRepository.findByLogin(login);
-    }
-
-    @Override
-    public List<User> findBySpecialty(String specialty) {
-        return userRepository.findBySpecialityName(specialty);
-    }
-
-    @Override
-    public List<User> findByName(String name) {
+    public Optional<User> findByName(String name) {
         return userRepository.findByName(name);
     }
 
     @Override
-    public List<User> findByRole(Role role) {
-        return userRepository.findByRole(role);
-    }
-
-    @Override
-    public List<User> findByDepartment(Department department) {
-        return userRepository.findByDepartment(department);
-    }
-
-    @Override
-    public List<User> findByNameLike(String namePattern) {
-        return userRepository.findByNameLike(namePattern+"%");
+    public Optional<User> findByIPN(String IPN) {
+        return userRepository.findByIPN(IPN);
     }
 }

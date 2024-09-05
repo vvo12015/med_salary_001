@@ -41,13 +41,15 @@ public class UserRestController {
         this.roleService = roleService;
     }
 
+/*
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAll() {
         List<UserDTO> users = userMapper.toDtoList(userService.findAll());
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+*/
 
-    @GetMapping("/{id}")
+  /*  @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getById(@PathVariable Long id) throws ResourceNotFoundException {
         User user = userService.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("User", "id", id.toString()));
@@ -56,51 +58,14 @@ public class UserRestController {
 
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
-
-    @GetMapping("/login/{login}")
-    public ResponseEntity<UserDTO> getByLogin(@PathVariable String login) throws ResourceNotFoundException {
-        User user = userService.findByLogin(login)
-                .orElseThrow(()->new ResourceNotFoundException("User", "login", login));
-
-        UserDTO userDTO = userMapper.toDto(user);
-
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
-    }
-
+*/
     @GetMapping("/name/{namePattern}")
-    public ResponseEntity<List<UserDTO>> getByLikeName(@PathVariable String namePattern) throws ResourceNotFoundException {
-        List<UserDTO> users = userMapper.toDtoList(userService.findByNameLike(namePattern));
+    public ResponseEntity<UserDTO> getByLikeName(@PathVariable String namePattern) throws ResourceNotFoundException {
+        UserDTO user = userMapper.toDto(userService.findByName(namePattern)
+                .orElseThrow(()->new ResourceNotFoundException("User", "name", namePattern))
+        );
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/department/{departmentRef}")
-    public ResponseEntity<List<UserDTO>> getByDepartment(@PathVariable Long departmentRef) throws ResourceNotFoundException {
-
-        Department department = departmentService.findById(departmentRef)
-                .orElseThrow(()->new ResourceNotFoundException("Department", "id", departmentRef.toString()));
-
-        List<UserDTO> users = userMapper.toDtoList(userService.findByDepartment(department));
-
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/speciality/{name}")
-    public ResponseEntity<List<UserDTO>> getBySpecialityName(@PathVariable String name) throws ResourceNotFoundException {
-        List<UserDTO> users = userMapper.toDtoList(userService.findBySpecialty(name));
-
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-    @GetMapping("/role/{roleRef}")
-    public ResponseEntity<List<UserDTO>> getByRole(@PathVariable Long roleRef) throws ResourceNotFoundException {
-
-        Role role = roleService.findById(roleRef)
-                .orElseThrow(()->new ResourceNotFoundException("Role", "id", roleRef.toString()));
-
-        List<UserDTO> users = userMapper.toDtoList(userService.findByRole(role));
-
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
@@ -127,7 +92,7 @@ public class UserRestController {
         return ResponseEntity.ok("User deleted successfully!.");
     }
 
-    @PutMapping("/{id}")
+/*    @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserSavedDTO userDTO) {
 
         if (!userDTO.getId().equals(id)){
@@ -144,5 +109,5 @@ public class UserRestController {
         UserDTO savedUser = userMapper.toDto(userService.save(user));
 
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
-    }
+    }*/
 }
